@@ -1,11 +1,37 @@
 @import "tailwindcss";
 
-/* Global reset for responsiveness */
-html, body, #app {
+/* 1. GLOBAL RESET: 
+  This is the most important part. 
+  Vite's default template uses 'place-items: center' and 'max-width' 
+  which locks your app in a small box. We are removing those now.
+*/
+:root, body, #app {
   margin: 0;
   padding: 0;
-  width: 100%; /* Use 100% instead of 100vw to avoid scrollbar issues */
+  width: 100%;
   min-height: 100vh;
-  background-color: #FDF8F4;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
+  display: block; /* Removes the centering lock */
+  background-color: #F3F4F6; /* Modern light gray for the dashboard */
+  overflow-x: hidden; /* Prevents unwanted horizontal scrolling  */
+}
+
+/* 2. BOX SIZING: 
+  Standard engineering practice to ensure padding doesn't affect width.
+*/
+* {
+  box-sizing: border-box;
+}
+
+/* 3. CUSTOM SCROLLBAR (Optional):
+  To make the dashboard look even more premium like the reference image.
+*/
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 10px;
 }

@@ -1,72 +1,51 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import FilterSidebar from '../components/FilterSidebar.vue';
 import ProductCard from '../components/ProductCard.vue';
-import Hero from '../components/Hero.vue';
 import { type Product } from '../types/product';
 
-/** * Component State Management
- * products: Stores the full list from API [cite: 6]
- * isLoading: Tracks the asynchronous fetch status [cite: 9]
- * searchQuery: Bound to the search input for real-time filtering 
- */
 const products = ref<Product[]>([]);
 const isLoading = ref(true);
-const searchQuery = ref('');
 
-/** * API Interaction logic
- * Fetches product data from DummyJSON [cite: 20]
- */
-const loadProducts = async () => {
+const loadData = async () => {
   try {
-    const response = await fetch('https://dummyjson.com/products');
-    const data = await response.json();
+    const res = await fetch('https://dummyjson.com/products');
+    const data = await res.json();
     products.value = data.products;
-  } catch (err) {
-    console.error("Critical: API connection failed", err);
   } finally {
     isLoading.value = false;
   }
 };
 
-/** * Search logic
- * Dynamically filters products based on the user's input 
- */
-const filteredProducts = computed(() => {
-  return products.value.filter(p => 
-    p.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-});
-
-onMounted(() => {
-  loadProducts();
-});
+onMounted(loadData);
 </script>
 
 <template>
-  <main class="w-full">
-    <Hero />
+  <div class="max-w-[1600px] mx-auto flex flex-row gap-8 p-6 lg:p-10">
     
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 pb-24">
+    <FilterSidebar class="hidden xl:block" />
+
+    <div class="flex-1 overflow-hidden">
       
-      <div class="mb-16 flex justify-center -mt-10 relative z-20">
-        <div class="w-[90%] md:w-full max-w-2xl bg-white p-2 rounded-3xl shadow-2xl flex items-center">
-          <input 
-            v-model="searchQuery"
-            type="text" 
-            placeholder="Search products..." 
-            class="w-full px-5 py-3 rounded-2xl bg-transparent focus:outline-none"
-          />
-        </div>
+      <div class="flex items-center gap-4 mb-10 overflow-x-auto pb-2">
+        <button v-for="cat in ['All Categories', 'Deals', 'Crypto', 'Sport']" :key="cat"
+          class="px-6 py-2 bg-white rounded-full border border-gray-100 text-sm font-bold text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition">
+          {{ cat }}
+        </button>
       </div>
 
-      <div v-if="!isLoading" 
-           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
+      <div v-if="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ProductCard 
-          v-for="item in filteredProducts" 
+          v-for="item in products" 
           :key="item.id" 
           :product="item" 
         />
       </div>
+
+      <div v-else class="flex justify-center items-center h-64">
+        <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+      </div>
+
     </div>
-  </main>
+  </div>
 </template>
