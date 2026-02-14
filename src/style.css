@@ -1,7 +1,11 @@
 @import "tailwindcss";
-/* Import Tailwind's core styles */
 
-
-
-
-
+/* Global reset for responsiveness */
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Use 100% instead of 100vw to avoid scrollbar issues */
+  min-height: 100vh;
+  background-color: #FDF8F4;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}

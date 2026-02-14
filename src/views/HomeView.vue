@@ -46,24 +46,21 @@ onMounted(() => {
   <main class="w-full">
     <Hero />
     
-    <div class="max-w-[1600px] mx-auto px-8 md:px-16 pb-32">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 pb-24">
       
-      <div class="mb-20 flex justify-center -mt-16 relative z-30">
-        <div class="w-full max-w-4xl bg-white p-4 rounded-[2.5rem] shadow-2xl flex items-center border border-gray-50">
-          <span class="pl-6 text-3xl">🔍</span>
+      <div class="mb-16 flex justify-center -mt-10 relative z-20">
+        <div class="w-[90%] md:w-full max-w-2xl bg-white p-2 rounded-3xl shadow-2xl flex items-center">
           <input 
             v-model="searchQuery"
             type="text" 
-            placeholder="Search for any product..." 
-            class="w-full px-6 py-4 text-xl bg-transparent focus:outline-none"
+            placeholder="Search products..." 
+            class="w-full px-5 py-3 rounded-2xl bg-transparent focus:outline-none"
           />
-          <button class="bg-blue-600 text-white px-12 py-5 rounded-[1.8rem] font-bold text-lg">
-            Search
-          </button>
         </div>
       </div>
 
-      <div v-if="!isLoading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-12">
+      <div v-if="!isLoading" 
+           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
         <ProductCard 
           v-for="item in filteredProducts" 
           :key="item.id" 
