@@ -3,12 +3,11 @@ import { ref, onMounted, computed } from 'vue';
 import FilterSidebar from '../components/FilterSidebar.vue';
 import ProductCard from '../components/ProductCard.vue';
 import { type Product } from '../types/product';
-
+import { sharedData } from '../store';
 // State management
 const products = ref<Product[]>([]);
 const categories = ref<string[]>(['All Categories']); // Start with 'All'
 const isLoading = ref(true);
-const searchQuery = ref(''); 
 const selectedCategory = ref('All Categories');
 
 /**
@@ -49,7 +48,7 @@ const loadDashboardData = async () => {
 const filteredProducts = computed(() => { 
   return products.value.filter(item => {
     // 1. Search Match logic
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const matchesSearch = item.title.toLowerCase().includes(sharedData.searchQuery.toLowerCase()  );
 
     // 2. Category Match logic
     const normalizedSelected = selectedCategory.value.toLowerCase().replace(' ', '-');
@@ -111,3 +110,16 @@ onMounted(loadDashboardData);
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Chrome, Safari and Opera-la scrollbar-ah hide panna */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE, Edge and Firefox-la scrollbar-ah hide panna */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+</style>

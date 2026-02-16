@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import { sharedData } from '../store'; // importing sharedData
+</script>
 <template>
   <nav class="flex items-center justify-between w-full py-4 px-8 bg-white border-b border-gray-100 shadow-sm">
     
@@ -11,6 +14,7 @@
       <div class="relative group">
         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
         <input 
+          v-model="sharedData.searchQuery"
           type="text" 
           placeholder="Search products..." 
           class="w-full bg-gray-100 border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-blue-100 transition-all outline-none"
