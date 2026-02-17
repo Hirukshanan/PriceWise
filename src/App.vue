@@ -3,13 +3,9 @@ import NavBar from './components/NavBar.vue';
 </script>
 
 <template>
-  <div class="w-full min-h-screen font-sans antialiased text-gray-900 bg-[#F8F9FB]">
-    
+ <div class="w-full min-h-screen bg-[#FDF8F4]">
     <NavBar />
-
-    <main class="w-full">
-      <router-view />
-    </main>
     
+    <router-view />
   </div>
 </template>

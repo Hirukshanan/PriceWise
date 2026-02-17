@@ -91,6 +91,8 @@ onMounted(loadDashboardData);
             v-for="item in filteredProducts" 
             :key="item.id" 
             :product="item" 
+            @click="$router.push(`/product/${item.id}`)"
+    class="cursor-pointer"
           />
         </div>
         
@@ -112,12 +114,12 @@ onMounted(loadDashboardData);
 </template>
 
 <style scoped>
-/* Chrome, Safari and Opera-la scrollbar-ah hide panna */
+/* Chrome, Safari and Opera - scrollbar hiding */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* IE, Edge and Firefox-la scrollbar-ah hide panna */
+/* IE, Edge and Firefox- scrollbar hiding */
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */

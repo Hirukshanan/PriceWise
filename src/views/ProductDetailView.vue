@@ -29,7 +29,7 @@ const getAnalysis = () => item.value ? useBestDeal(item.value) : null;
         <h2 class="text-4xl font-bold text-blue-950 mb-2">{{ item.title }}</h2>
         <p class="text-gray-500 mb-8">{{ item.description }}</p>
 
-        <h4 class="font-bold text-sm uppercase tracking-widest text-gray-400 mb-4">Price Comparison Analysis</h4>
+        <h4 class="font-bold text-sm uppercase tracking-widest text-black-400 mb-4">Price Comparison Analysis</h4>
         
         <div class="space-y-4">
           <div :class="['p-6 rounded-2xl border-2 transition', getAnalysis()?.bestSite.value === 'siteA' ? 'border-green-400 bg-green-50' : 'border-gray-100']">
