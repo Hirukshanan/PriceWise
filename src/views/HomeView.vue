@@ -62,17 +62,17 @@ onMounted(loadDashboardData);
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto p-6 lg:p-10">
+  <div class="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-10">
     
     <div class="flex-1 overflow-hidden">
       
-      <div class="flex items-center gap-4 mb-10 overflow-x-auto pb-4 no-scrollbar">
+      <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-10 overflow-x-auto pb-4 no-scrollbar">
         <button 
           v-for="cat in categories" 
           :key="cat"
           @click="selectedCategory = cat"
           :class="[
-            'px-6 py-2.5 rounded-full text-sm font-bold transition-all flex-shrink-0 border whitespace-nowrap', 
+            'px-4 py-2 md:px-6 md:py-2.5 rounded-full text-sm font-bold transition-all flex-shrink-0 border whitespace-nowrap', 
             selectedCategory === cat 
               ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100' 
               : 'bg-white text-gray-500 border-gray-100 hover:border-blue-200'
@@ -83,13 +83,13 @@ onMounted(loadDashboardData);
       </div>
 
       <div v-if="!isLoading">
-        <div v-if="filteredProducts.length > 0" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div v-if="filteredProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
           <ProductCard 
             v-for="item in filteredProducts" 
             :key="item.id" 
             :product="item" 
             @click="$router.push(`/product/${item.id}`)"
-    class="cursor-pointer"
+            class="cursor-pointer"
           />
         </div>
         
