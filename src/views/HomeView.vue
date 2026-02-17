@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import FilterSidebar from '../components/FilterSidebar.vue';
 import ProductCard from '../components/ProductCard.vue';
 import { type Product } from '../types/product';
 import { sharedData } from '../store';
@@ -63,10 +62,8 @@ onMounted(loadDashboardData);
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto flex flex-row gap-8 p-6 lg:p-10">
+  <div class="max-w-[1600px] mx-auto p-6 lg:p-10">
     
-    <FilterSidebar class="hidden xl:block" />
-
     <div class="flex-1 overflow-hidden">
       
       <div class="flex items-center gap-4 mb-10 overflow-x-auto pb-4 no-scrollbar">
@@ -86,7 +83,7 @@ onMounted(loadDashboardData);
       </div>
 
       <div v-if="!isLoading">
-        <div v-if="filteredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-if="filteredProducts.length > 0" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <ProductCard 
             v-for="item in filteredProducts" 
             :key="item.id" 

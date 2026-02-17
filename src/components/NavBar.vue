@@ -12,7 +12,7 @@ import { sharedData } from '../store'; // importing sharedData
 
     <div class="flex-1 max-w-xl mx-10">
       <div class="relative group">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-lightblue-400">🔍</span>
         <input 
           v-model="sharedData.searchQuery"
           type="text" 
