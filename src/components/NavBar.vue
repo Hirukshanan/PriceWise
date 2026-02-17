@@ -6,7 +6,7 @@ import { sharedData } from '../store'; // importing sharedData
     
     <div class="flex items-center gap-2">
       <router-link to="/" class="text-2xl font-black tracking-tighter text-blue-900">
-        PriceWise <span class="text-blue-500">.</span>
+        PriceWise 
       </router-link>
     </div>
 
