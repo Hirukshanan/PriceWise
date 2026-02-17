@@ -5,14 +5,19 @@
   Vite's default template uses 'place-items: center' and 'max-width' 
   which locks your app in a small box. We are removing those now.
 */
-:root, body, #app {
+:root,
+body,
+#app {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vh;
   min-height: 100vh;
-  display: block; /* Removes the centering lock */
-  background-color: #F3F4F6; /* Modern light gray for the dashboard */
-  overflow-x: hidden; /* Prevents unwanted horizontal scrolling  */
+  display: block;
+  /* Removes the centering lock */
+  background-color: #F3F4F6;
+  /* Modern light gray for the dashboard */
+  overflow-x: hidden;
+  /* Prevents unwanted horizontal scrolling  */
 }
 
 /* 2. BOX SIZING: 
@@ -28,9 +33,11 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #E5E7EB;
   border-radius: 10px;

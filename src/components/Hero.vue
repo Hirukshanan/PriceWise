@@ -1,6 +1,6 @@
 <template>
   <section class="w-full py-12 md:py-20 lg:py-32 overflow-hidden">
-    <div class="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+    <div class="w-full mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-10">
       
       <div class="lg:w-[60%] text-left">
         <h1 class="text-5xl md:text-7xl lg:text-9xl font-black text-[#1a2b56] leading-[1.1] mb-6 md:mb-8 tracking-tighter">

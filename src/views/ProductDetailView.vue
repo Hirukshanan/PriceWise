@@ -43,7 +43,7 @@ const bestSites = computed(() => {
 </script>
 
 <template>
-  <div v-if="!isLoading" class="max-w-6xl mx-auto p-4 md:p-6 lg:p-12 space-y-8 md:space-y-12">
+  <div v-if="!isLoading" class="w-full mx-auto p-4 md:p-6 lg:p-12 space-y-8 md:space-y-12">
     
     <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-100">
       <img :src="product.thumbnail" class="w-full md:w-1/3 rounded-2xl md:rounded-3xl object-contain bg-gray-50 p-4" />

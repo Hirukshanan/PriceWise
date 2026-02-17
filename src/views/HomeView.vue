@@ -62,7 +62,7 @@ onMounted(loadDashboardData);
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-10">
+  <div class="w-full mx-auto p-4 md:p-6 lg:p-10">
     
     <div class="flex-1 overflow-hidden">
       
