@@ -125,7 +125,6 @@ const toggleMobileMenu = () => {
               alt="User Profile" 
               class="w-8 h-8 rounded-full object-cover"
             />
-            <span class="text-sm font-bold text-gray-800 dark:text-white">Niharsana</span>
         </div>
     </div>
   </nav>
