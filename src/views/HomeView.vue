@@ -74,8 +74,8 @@ onMounted(loadDashboardData);
           :class="[
             'px-6 py-3 md:px-8 md:py-3.5 rounded-full text-base md:text-lg font-bold transition-all flex-shrink-0 border whitespace-nowrap', 
             selectedCategory === cat 
-              ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100' 
-              : 'bg-white text-gray-500 border-gray-100 hover:border-blue-200'
+              ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100 dark:shadow-blue-900/30' 
+              : 'bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-800'
           ]"
         >
           {{ cat }}
@@ -93,7 +93,7 @@ onMounted(loadDashboardData);
           />
         </div>
         
-        <div v-else class="flex flex-col items-center justify-center py-24 text-gray-400">
+        <div v-else class="flex flex-col items-center justify-center py-24 text-gray-400 dark:text-gray-500">
           <span class="text-6xl mb-6">🔍</span>
           <p class="text-xl font-medium">No results found for "{{ selectedCategory }}"</p>
           <button @click="selectedCategory = 'All Categories'" class="mt-4 text-blue-600 font-bold underline">

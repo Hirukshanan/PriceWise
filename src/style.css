@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 html {
   font-size: 40px;
@@ -12,12 +13,22 @@ body {
   min-height: 100vh;
   background-color: #F3F4F6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.dark body,
+.dark :root {
+  background-color: #030712;
 }
 
 #app {
   width: 100%;
   min-height: 100vh;
   background-color: #F3F4F6;
+}
+
+.dark #app {
+  background-color: #030712;
 }
 
 * {
@@ -35,4 +46,12 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #E5E7EB;
   border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #374151;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: transparent;
 }

@@ -45,22 +45,22 @@ const bestSites = computed(() => {
 <template>
   <div v-if="!isLoading" class="w-full mx-auto p-4 md:p-6 lg:p-12 space-y-8 md:space-y-12">
     
-    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300">
-      <img :src="product.thumbnail" class="w-full md:w-1/3 rounded-2xl md:rounded-3xl object-contain bg-gray-50 p-4" />
+    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700">
+      <img :src="product.thumbnail" class="w-full md:w-1/3 rounded-2xl md:rounded-3xl object-contain bg-gray-50 dark:bg-gray-700 p-4" />
       <div class="flex-1 space-y-3 md:space-y-4 text-center md:text-left">
-        <h1 class="text-3xl md:text-5xl font-black text-gray-900 leading-tight">{{ product.title }}</h1>
-        <p class="text-gray-500 text-lg md:text-xl">{{ product.description }}</p>
+        <h1 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight">{{ product.title }}</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-lg md:text-xl">{{ product.description }}</p>
         <div class="text-3xl md:text-4xl font-bold text-blue-600 my-2">${{ product.price }}</div>
       </div>
     </div>
     <br>
-    <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300 overflow-hidden">
-      <div class="p-6 md:p-8 border-b border-gray-50 bg-gray-50/50">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Marketplace Comparison</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700 overflow-hidden">
+      <div class="p-6 md:p-8 border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Marketplace Comparison</h2>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left min-w-[600px]">
-          <thead class="bg-gray-50 text-gray-400 text-base md:text-lg uppercase">
+          <thead class="bg-gray-50 dark:bg-gray-700 text-gray-400 dark:text-gray-300 text-base md:text-lg uppercase">
             <tr>
               <th class="px-4 md:px-8 py-3 md:py-4">Store Name</th>
               <th class="px-4 md:px-8 py-3 md:py-4">Price</th>
@@ -69,13 +69,13 @@ const bestSites = computed(() => {
               <th class="px-4 md:px-8 py-3 md:py-4">Delivery</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-50">
-            <tr v-for="s in stores" :key="s.name" class="hover:bg-blue-50/30 transition-colors">
-              <td class="px-4 md:px-8 py-5 md:py-7 font-bold text-gray-800 text-lg md:text-xl">{{ s.name }}</td>
+          <tbody class="divide-y divide-gray-50 dark:divide-gray-700">
+            <tr v-for="s in stores" :key="s.name" class="hover:bg-blue-50/30 dark:hover:bg-blue-900/20 transition-colors">
+              <td class="px-4 md:px-8 py-5 md:py-7 font-bold text-gray-800 dark:text-white text-lg md:text-xl">{{ s.name }}</td>
               <td class="px-4 md:px-8 py-5 md:py-7 font-black text-blue-600 text-lg md:text-xl">${{ s.price }}</td>
               <td class="px-4 md:px-8 py-5 md:py-7 text-orange-500 font-bold text-lg md:text-xl">⭐ {{ s.rating }}</td>
-              <td class="px-4 md:px-8 py-5 md:py-7 text-gray-600 text-lg md:text-xl">{{ s.shipping === 0 ? 'FREE' : '$' + s.shipping }}</td>
-              <td class="px-4 md:px-8 py-5 md:py-7 text-gray-500 text-lg md:text-xl">{{ s.delivery }}</td>
+              <td class="px-4 md:px-8 py-5 md:py-7 text-gray-600 dark:text-gray-300 text-lg md:text-xl">{{ s.shipping === 0 ? 'FREE' : '$' + s.shipping }}</td>
+              <td class="px-4 md:px-8 py-5 md:py-7 text-gray-500 dark:text-gray-400 text-lg md:text-xl">{{ s.delivery }}</td>
             </tr>
           </tbody>
         </table>
@@ -84,7 +84,7 @@ const bestSites = computed(() => {
 
     <div class="space-y-6">
       <br>
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 px-2">Our Best Recommendations</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white px-2">Our Best Recommendations</h2>
       <br>
       <br>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
