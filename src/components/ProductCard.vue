@@ -11,8 +11,8 @@ defineProps<{
 <template>
   <div class="bg-white p-7 md:p-10 rounded-2xl md:rounded-[2rem] border border-gray-100 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden group">
     
-    <div class="h-60 md:h-72 flex items-center justify-center bg-gray-50 rounded-xl md:rounded-2xl mb-6 md:mb-8 p-6 relative group-hover:bg-blue-50/50 transition-colors">
-      <img :src="product.thumbnail" :alt="product.title" loading="lazy" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-500" />
+    <div class="h-80 md:h-96 flex items-center justify-center bg-gray-50 rounded-xl md:rounded-2xl mb-6 md:mb-8 p-6 relative group-hover:bg-blue-50/50 transition-colors">
+      <img :src="product.thumbnail" :alt="product.title" loading="lazy" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500" />
     </div>
 
     <div class="flex-grow">
