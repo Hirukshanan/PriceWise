@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { sharedData } from '../store'; // importing sharedData
+import { sharedData } from '../store';
 
 const isDarkMode = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -57,9 +57,15 @@ const toggleMobileMenu = () => {
           <span class="text-2xl">{{ isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
 
-        <a href="#" class="flex items-center gap-2 hover:text-blue-600 transition-colors">
+        <router-link to="/favourites" class="flex items-center gap-2 hover:text-blue-600 transition-colors relative">
           <span class="text-2xl">🤍</span>
-        </a>
+          <span 
+            v-if="sharedData.favourites.length > 0" 
+            class="absolute -top-2 -right-3 bg-rose-500 text-white text-sm font-bold px-2.5 py-1 rounded-full border-2 border-white dark:border-gray-900"
+          >
+            {{ sharedData.favourites.length }}
+          </span>
+        </router-link>
 
         <a href="#" class="flex items-center gap-2 relative hover:text-blue-600 transition-colors">
           <div class="relative">
@@ -115,9 +121,10 @@ const toggleMobileMenu = () => {
         </button>
        </div>
 
-       <a href="#" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-medium py-2">
-          <span class="text-lg">🤍</span> Wishlist
-        </a>
+       <router-link to="/favourites" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-medium py-2">
+          <span class="text-lg">🤍</span> Favourites
+          <span v-if="sharedData.favourites.length > 0" class="ml-auto bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ sharedData.favourites.length }}</span>
+        </router-link>
 
         <div class="flex items-center gap-3 py-2 border-t border-gray-100 dark:border-gray-800 pt-4">
            <img 

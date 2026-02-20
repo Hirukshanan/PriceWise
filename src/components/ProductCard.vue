@@ -1,18 +1,35 @@
 <script setup lang="ts" title="ProductCard.vue">
 import type { Product } from '../types/product';
+import { toggleFavourite, isFavourite } from '../store';
 
 // Props definition with Strict Types 
 defineProps<{
   product: Product
 }>();
+
+const onFavouriteClick = (e: Event, id: number) => {
+  e.stopPropagation();
+  toggleFavourite(id);
+};
 </script>
 
 
 <template>
-  <div class="bg-white dark:bg-gray-800 p-7 md:p-10 rounded-2xl md:rounded-[2rem] border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden group">
+  <div class="bg-white dark:bg-gray-800 p-7 md:p-10 rounded-2xl md:rounded-[2rem] border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden group relative">
     
     <div class="h-80 md:h-96 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl md:rounded-2xl mb-6 md:mb-8 p-6 relative group-hover:bg-blue-50/50 dark:group-hover:bg-gray-600 transition-colors">
       <img :src="product.thumbnail" :alt="product.title" loading="lazy" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500" />
+      
+      <!-- Favourite Heart Button -->
+      <button 
+        @click="onFavouriteClick($event, product.id)"
+        class="absolute top-4 right-4 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+        :title="isFavourite(product.id) ? 'Remove from favourites' : 'Add to favourites'"
+      >
+        <span class="text-xl transition-transform duration-300" :class="isFavourite(product.id) ? 'scale-110' : 'scale-100'">
+          {{ isFavourite(product.id) ? '❤️' : '🤍' }}
+        </span>
+      </button>
     </div>
 
     <div class="flex-grow">
