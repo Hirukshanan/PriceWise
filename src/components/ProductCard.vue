@@ -15,7 +15,7 @@ const onFavouriteClick = (e: Event, id: number) => {
 
 
 <template>
-  <div class="bg-white dark:bg-gray-800 p-7 md:p-10 rounded-2xl md:rounded-[2rem] border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden group relative">
+  <div class="bg-white dark:bg-gray-800 p-7 md:p-10 rounded-2xl md:rounded-4xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col h-full transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden group relative">
     
     <div class="h-80 md:h-96 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-xl md:rounded-2xl mb-6 md:mb-8 p-6 relative group-hover:bg-blue-50/50 dark:group-hover:bg-gray-600 transition-colors">
       <img :src="product.thumbnail" :alt="product.title" loading="lazy" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500" />
@@ -32,7 +32,7 @@ const onFavouriteClick = (e: Event, id: number) => {
       </button>
     </div>
 
-    <div class="flex-grow">
+    <div class="grow">
       <h3 class="font-bold text-gray-800 dark:text-white leading-snug text-xl md:text-2xl line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors">
         {{ product.title }}
       </h3>
