@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import ProductDetailView from '../views/ProductDetailView.vue';
-import FavouritesView from '../views/FavouritesView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,18 +6,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       // :id is a dynamic parameter to load different products
       path: '/product/:id',
       name: 'product-detail',
-      component: ProductDetailView
+      component: () => import('../views/ProductDetailView.vue')
     },
     {
       path: '/favourites',
       name: 'favourites',
-      component: FavouritesView
+      component: () => import('../views/FavouritesView.vue')
     }
   ]
 });

@@ -1,29 +1,36 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import ProductCard from '../components/ProductCard.vue';
 import { type Product } from '../types/product';
 import { sharedData } from '../store';
 
-const allProducts = ref<Product[]>([]);
+const favouriteProducts = ref<Product[]>([]);
 const isLoading = ref(true);
 
-const loadProducts = async () => {
+const loadFavourites = async () => {
   try {
-    const res = await fetch('https://dummyjson.com/products?limit=0');
-    const data = await res.json();
-    allProducts.value = data.products;
+    const ids = sharedData.favourites;
+
+    // No favourites? Skip the network entirely.
+    if (ids.length === 0) {
+      favouriteProducts.value = [];
+      return;
+    }
+
+    // Fetch only the products the user has favourited, in parallel.
+    const results = await Promise.all(
+      ids.map(id => fetch(`https://dummyjson.com/products/${id}`).then(r => r.json()))
+    );
+
+    favouriteProducts.value = results;
   } catch (error) {
-    console.error('Failed to load products:', error);
+    console.error('Failed to load favourites:', error);
   } finally {
     isLoading.value = false;
   }
 };
 
-const favouriteProducts = computed(() => {
-  return allProducts.value.filter(p => sharedData.favourites.includes(p.id));
-});
-
-onMounted(loadProducts);
+onMounted(loadFavourites);
 </script>
 
 <template>
