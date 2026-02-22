@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { sharedData } from '../store';
+
+const route = useRoute();
+const showSearch = computed(() => route.path !== '/favourites' && route.path !== '/price-watch');
 
 const isDarkMode = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -35,7 +39,7 @@ const toggleMobileMenu = () => {
       </div>
 
       <!-- Desktop Search -->
-      <div class="hidden md:flex flex-1 max-w-2xl mx-12">
+      <div v-if="showSearch" class="hidden md:flex flex-1 max-w-2xl mx-12">
         <div class="relative group w-full">
           <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl">🔍</span>
           <input 
@@ -103,7 +107,7 @@ const toggleMobileMenu = () => {
     <div v-if="isMobileMenuOpen" class="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-4 space-y-4">
       
       <!-- Mobile Search -->
-      <div class="relative w-full">
+      <div v-if="showSearch" class="relative w-full">
          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
           <input 
             v-model="sharedData.searchQuery"
