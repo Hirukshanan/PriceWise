@@ -1,10 +1,38 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { addAlert, removeAlert, hasAlert, sharedData } from '../store';
 
 const route = useRoute();
 const product = ref<any>(null);
 const isLoading = ref(true);
+
+// Price alert state
+const showAlertInput = ref(false);
+const alertTargetPrice = ref(0);
+
+const productId = computed(() => Number(route.params.id));
+const isAlertSet = computed(() => hasAlert(productId.value));
+
+const toggleAlertInput = () => {
+  if (isAlertSet.value) {
+    removeAlert(productId.value);
+  } else {
+    alertTargetPrice.value = product.value ? Math.floor(product.value.price * 0.85) : 0;
+    showAlertInput.value = true;
+  }
+};
+
+const confirmAlert = () => {
+  if (alertTargetPrice.value > 0) {
+    addAlert(productId.value, alertTargetPrice.value);
+    showAlertInput.value = false;
+  }
+};
+
+const cancelAlertInput = () => {
+  showAlertInput.value = false;
+};
 
 // 1. Generate 5 Dummy Stores with different data
 const stores = ref([
@@ -45,21 +73,64 @@ const bestSites = computed(() => {
 <template>
   <div v-if="!isLoading" class="w-full mx-auto p-4 md:p-6 lg:p-12 space-y-8 md:space-y-12">
     
-    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700">
+    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-4xl md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700">
       <img :src="product.thumbnail" class="w-full md:w-1/3 rounded-2xl md:rounded-3xl object-contain bg-gray-50 dark:bg-gray-700 p-4" />
       <div class="flex-1 space-y-3 md:space-y-4 text-center md:text-left">
         <h1 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight">{{ product.title }}</h1>
         <p class="text-gray-500 dark:text-gray-400 text-lg md:text-xl">{{ product.description }}</p>
         <div class="text-3xl md:text-4xl font-bold text-blue-600 my-2">${{ product.price }}</div>
+        
+        <!-- Price Alert Button -->
+        <div class="pt-2">
+          <button
+            v-if="!showAlertInput"
+            @click="toggleAlertInput"
+            :class="[
+              'inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg font-bold transition-all active:scale-95',
+              isAlertSet
+                ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-2 border-emerald-200 dark:border-emerald-800 hover:bg-red-50 hover:text-red-500 hover:border-red-200 dark:hover:bg-red-900/30 dark:hover:text-red-400 dark:hover:border-red-800'
+                : 'bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-200 dark:shadow-orange-900/30'
+            ]"
+          >
+            <span class="text-xl">{{ isAlertSet ? '✅' : '🔔' }}</span>
+            {{ isAlertSet ? 'Alert Set — Click to Remove' : 'Set Price Alert' }}
+          </button>
+
+          <!-- Inline target price input -->
+          <div v-if="showAlertInput" class="flex flex-col sm:flex-row items-center gap-3 bg-orange-50 dark:bg-orange-900/20 p-4 md:p-5 rounded-2xl border-2 border-orange-200 dark:border-orange-800">
+            <label class="text-base md:text-lg font-bold text-gray-700 dark:text-gray-200 whitespace-nowrap">Target price: $</label>
+            <input
+              v-model.number="alertTargetPrice"
+              type="number"
+              min="1"
+              step="1"
+              class="w-full sm:w-40 bg-white dark:bg-gray-800 border-2 border-orange-200 dark:border-orange-700 focus:border-orange-400 rounded-xl py-3 px-4 text-xl md:text-2xl font-bold text-gray-800 dark:text-white outline-none transition-all text-center"
+            />
+            <div class="flex gap-2">
+              <button
+                @click="confirmAlert"
+                class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 rounded-xl text-base font-bold transition-all active:scale-95"
+              >
+                Confirm
+              </button>
+              <button
+                @click="cancelAlertInput"
+                class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-5 py-3 rounded-xl text-base font-bold transition-all active:scale-95"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <br>
-    <div class="bg-white dark:bg-gray-800 rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-4xl md:rounded-[2.5rem] shadow-sm border border-gray-300 dark:border-gray-700 overflow-hidden">
       <div class="p-6 md:p-8 border-b border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Marketplace Comparison</h2>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-left min-w-[600px]">
+        <table class="w-full text-left min-w-150">
           <thead class="bg-gray-50 dark:bg-gray-700 text-gray-400 dark:text-gray-300 text-base md:text-lg uppercase">
             <tr>
               <th class="px-4 md:px-8 py-3 md:py-4">Store Name</th>
@@ -89,7 +160,7 @@ const bestSites = computed(() => {
       <br>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         <div v-for="site in bestSites" :key="site.name" 
-             class="relative bg-blue-600 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] text-white shadow-xl shadow-blue-100 overflow-hidden">
+             class="relative bg-blue-600 p-6 md:p-8 rounded-4xl md:rounded-[2.5rem] text-white shadow-xl shadow-blue-100 overflow-hidden">
           <span class="absolute top-6 right-6 md:right-8 bg-white/20 px-4 md:px-5 py-1.5 rounded-full text-sm md:text-base font-bold uppercase tracking-widest">
             {{ site.tag }}
           </span>

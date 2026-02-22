@@ -67,14 +67,16 @@ const toggleMobileMenu = () => {
           </span>
         </router-link>
 
-        <a href="#" class="flex items-center gap-2 relative hover:text-blue-600 transition-colors">
+        <router-link to="/price-watch" class="flex items-center gap-2 relative hover:text-blue-600 transition-colors">
           <div class="relative">
             <span class="text-3xl">🔔</span>
-            <span class="absolute -top-2 -right-3 bg-orange-500 text-white text-sm font-bold px-2.5 py-1 rounded-full border-2 border-white dark:border-gray-900">
-              16
+            <span 
+              v-if="sharedData.alerts.length > 0"
+              class="absolute -top-2 -right-3 bg-orange-500 text-white text-sm font-bold px-2.5 py-1 rounded-full border-2 border-white dark:border-gray-900">
+              {{ sharedData.alerts.length }}
             </span>
           </div>
-        </a>
+        </router-link>
 
         <div class="flex items-center ml-2">
           <button class="w-14 h-14 rounded-full border-2 border-gray-100 dark:border-gray-700 overflow-hidden hover:border-blue-300 transition-all">
@@ -90,10 +92,10 @@ const toggleMobileMenu = () => {
 
       <!-- Mobile Search Icon (optional, if you want search accessible without menu) -->
        <div class="md:hidden flex items-center gap-4">
-        <a href="#" class="relative text-gray-600 dark:text-gray-300">
+        <router-link to="/price-watch" class="relative text-gray-600 dark:text-gray-300">
              <span class="text-xl">🔔</span>
              <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">16</span>
-        </a>
+        </router-link>
        </div>
     </div>
 

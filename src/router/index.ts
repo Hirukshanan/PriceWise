@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/favourites',
       name: 'favourites',
       component: () => import('../views/FavouritesView.vue')
+    },
+    {
+      path: '/price-watch',
+      name: 'price-watch',
+      component: () => import('../views/PriceWatchView.vue')
     }
   ]
 });
