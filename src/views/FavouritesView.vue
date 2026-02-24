@@ -37,7 +37,7 @@ onMounted(loadFavourites);
   <div class="w-full mx-auto p-4 md:p-6 lg:p-10">
 
     <!-- Header -->
-    <div class="mb-8 md:mb-12">
+    <div class="mb-8 md:mb-12" style="padding-bottom: 2.5rem;">
       <h1 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-2">
         My Favourites
       </h1>

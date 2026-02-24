@@ -117,7 +117,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
   <div class="w-full min-h-screen px-4 md:px-6 lg:px-10 py-10 md:py-14">
 
     <!-- ─── Header ─────────────────────────────────────────── -->
-    <div class="mb-10 md:mb-14">
+    <div class="mb-10 md:mb-14" style="padding-bottom: 2.5rem;">
       <h1 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
         🔔 My Price Alerts
       </h1>
@@ -146,7 +146,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
           class="group bg-white dark:bg-slate-800 rounded-2xl md:rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
         >
           <!-- Card Image -->
-          <div class="relative h-56 md:h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center p-6">
+          <div class="relative h-56 md:h-64 bg-linear-to-br bg-blue-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center p-6">
             <img
               :src="alert.thumbnail"
               :alt="alert.title"
