@@ -34,7 +34,7 @@ onMounted(loadFavourites);
 </script>
 
 <template>
-  <div class="w-full mx-auto p-6 md:p-10 lg:p-14">
+  <div class="w-full mx-auto p-4 md:p-6 lg:p-10">
 
     <!-- Header -->
     <div class="mb-8 md:mb-12">
@@ -52,7 +52,7 @@ onMounted(loadFavourites);
     </div>
 
     <!-- Favourited Products Grid -->
-    <div v-else-if="favouriteProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+    <div v-else-if="favouriteProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 md:gap-6">
       <ProductCard 
         v-for="item in favouriteProducts" 
         :key="item.id" 
@@ -77,3 +77,34 @@ onMounted(loadFavourites);
 
   </div>
 </template>
+
+<style scoped>
+/* ── 5-column grid: tighten card internals at xl ── */
+@media (min-width: 1280px) {
+  :deep(.grid > div) {
+    padding: 1.25rem !important;
+  }
+  :deep(.grid > div > div:first-child) {
+    height: 11rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  :deep(.grid > div h3) {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  :deep(.grid > div p) {
+    font-size: 0.8rem !important;
+  }
+  :deep(.grid > div span.text-blue-600) {
+    font-size: 1.35rem !important;
+  }
+  :deep(.grid > div > div:last-child) {
+    margin-top: 0.75rem !important;
+    padding-top: 0.75rem !important;
+  }
+  :deep(.grid > div button) {
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+</style>

@@ -114,7 +114,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
 </script>
 
 <template>
-  <div class="w-full min-h-screen px-6 lg:px-16 py-10 md:py-14">
+  <div class="w-full min-h-screen px-4 md:px-6 lg:px-10 py-10 md:py-14">
 
     <!-- ─── Header ─────────────────────────────────────────── -->
     <div class="mb-10 md:mb-14">
@@ -137,7 +137,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
     <!-- ─── Alert Cards Grid ───────────────────────────────── -->
     <div
       v-else-if="alerts.length > 0"
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 md:gap-6"
     >
       <TransitionGroup name="card">
         <div
@@ -324,6 +324,29 @@ const getStatusConfig = (status: PriceAlert['status']) => {
 </template>
 
 <style scoped>
+/* ── 5-column grid: tighten alert card internals at xl ── */
+@media (min-width: 1280px) {
+  .grid > div > div.relative {
+    height: 10rem !important;
+  }
+  .grid > div > div.p-5 {
+    padding: 0.85rem !important;
+  }
+  .grid > div h3 {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .grid > div .text-2xl {
+    font-size: 1.1rem !important;
+  }
+  .grid > div .text-3xl {
+    font-size: 1.25rem !important;
+  }
+  .grid > div .h-2\.5 {
+    height: 0.4rem !important;
+  }
+}
+
 /* Card list transition */
 .card-enter-active,
 .card-leave-active {

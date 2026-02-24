@@ -62,19 +62,19 @@ onMounted(loadDashboardData);
 </script>
 
 <template>
-  <div class="w-full mx-auto p-6 md:p-10 lg:p-14">
-    
+  <div class="w-full mx-auto p-4 md:p-6 lg:p-10">
+
     <div class="flex-1 overflow-hidden">
-      
+
       <div class="flex items-center gap-4 md:gap-5 mb-8 md:mb-12 overflow-x-auto pb-4 no-scrollbar">
-        <button 
-          v-for="cat in categories" 
+        <button
+          v-for="cat in categories"
           :key="cat"
           @click="selectedCategory = cat"
           :class="[
-            'px-6 py-3 md:px-8 md:py-3.5 rounded-full text-base md:text-lg font-bold transition-all flex-shrink-0 border whitespace-nowrap', 
-            selectedCategory === cat 
-              ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100 dark:shadow-blue-900/30' 
+            'px-6 py-3 md:px-8 md:py-3.5 rounded-full text-base md:text-lg font-bold transition-all shrink-0 border whitespace-nowrap',
+            selectedCategory === cat
+              ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100 dark:shadow-blue-900/30'
               : 'bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-800'
           ]"
         >
@@ -83,7 +83,7 @@ onMounted(loadDashboardData);
       </div>
 
       <div v-if="!isLoading">
-        <div v-if="filteredProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+        <div v-if="filteredProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 md:gap-8">
           <ProductCard 
             v-for="item in filteredProducts" 
             :key="item.id" 
@@ -120,5 +120,41 @@ onMounted(loadDashboardData);
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* ── 5-column grid: tighten card internals at xl so cards stay proportional ── */
+@media (min-width: 1280px) {
+  /* Outer card padding */
+  :deep(.grid > div) {
+    padding: 1.25rem !important;
+  }
+  /* Image area height */
+  :deep(.grid > div > div:first-child) {
+    height: 11rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  /* Title text */
+  :deep(.grid > div h3) {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  /* Brand text */
+  :deep(.grid > div p) {
+    font-size: 0.8rem !important;
+  }
+  /* Price */
+  :deep(.grid > div span.text-blue-600) {
+    font-size: 1.35rem !important;
+  }
+  /* Bottom bar */
+  :deep(.grid > div > div:last-child) {
+    margin-top: 0.75rem !important;
+    padding-top: 0.75rem !important;
+  }
+  /* Compare button */
+  :deep(.grid > div button) {
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
 }
 </style>
