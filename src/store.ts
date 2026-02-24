@@ -34,6 +34,7 @@ export const sharedData = reactive({
   searchQuery: '',
   favourites: loadFavourites() as number[],
   alerts: loadAlerts() as StoredAlert[],
+  sidebarOpen: false,
 });
 
 // ─── Favourite Actions ──────────────────────────────────────────

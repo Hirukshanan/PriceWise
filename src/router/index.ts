@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/price-watch',
       name: 'price-watch',
       component: () => import('../views/PriceWatchView.vue')
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('../views/AccountView.vue')
     }
   ]
 });
