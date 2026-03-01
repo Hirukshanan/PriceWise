@@ -9,9 +9,9 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  userName: 'Hirukshanan L.',
-  userEmail: 'hirukshanan@pricewise.com',
-  userAvatar: 'https://i.pravatar.cc/150?u=hirukshanan',
+  userName: 'user',
+  userEmail: 'user@pricewise.com',
+  userAvatar: 'https://tse2.mm.bing.net/th/id/OIP.U_1oQ5CZ0Kl2L6UggZwlpwAAAA?w=256&h=256&rs=1&pid=ImgDetMain&o=7&rm=3',
 });
 
 // ─── Emits ───────────────────────────────────────────────────────
@@ -49,10 +49,10 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
     aria-label="User account sidebar"
   >
     <!-- ── HEADER ────────────────────────────────────────────────── -->
-    <header class="relative overflow-hidden px-8 py-10 flex-shrink-0">
+    <header class="relative overflow-hidden px-8 py-10 shrink-0">
       <!-- Gradient background -->
       <div
-        class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-800 dark:via-slate-800/80 dark:to-slate-900"
+        class="absolute inset-0 bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-800 dark:via-slate-800/80 dark:to-slate-900"
         aria-hidden="true"
       />
       <!-- Wave decoration -->
@@ -67,7 +67,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
       <!-- User Identity -->
       <div class="relative flex items-center gap-5">
         <!-- Avatar -->
-        <div class="flex-shrink-0 w-24 h-24 rounded-full ring-4 ring-white dark:ring-slate-700 shadow-lg overflow-hidden">
+        <div class="shrink-0 w-24 h-24 rounded-full ring-4 ring-white dark:ring-slate-700 shadow-lg overflow-hidden">
           <img :src="props.userAvatar" :alt="`${props.userName} avatar`" class="w-full h-full object-cover" />
         </div>
         <!-- Name & Email -->
@@ -90,7 +90,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
       <!-- Group 1: Activity -->
       <section aria-labelledby="section-activity">
         <div class="flex items-center gap-2 px-4 pb-2 mb-1" id="section-activity">
-          <svg class="w-5 h-5 text-gray-400 dark:text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="w-5 h-5 text-gray-400 dark:text-slate-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
           <span class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-slate-500 select-none">Activity</span>
@@ -108,7 +108,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
           aria-label="Comparison History"
         >
           <span :class="[
-            'flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0 transition-colors',
+            'flex items-center justify-center w-12 h-12 rounded-xl shrink-0 transition-colors',
             isActive('comparison-history').value
               ? 'bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-300'
               : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 group-hover:text-blue-500'
@@ -118,7 +118,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
             </svg>
           </span>
           <span class="flex-1 text-base font-semibold">Comparison History</span>
-          <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="9 18 15 12 9 6"/>
           </svg>
         </button>
@@ -129,7 +129,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
       <!-- Group 2: Settings -->
       <section aria-labelledby="section-settings">
         <div class="flex items-center gap-2 px-4 pb-2 mb-1" id="section-settings">
-          <svg class="w-5 h-5 text-gray-400 dark:text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="w-5 h-5 text-gray-400 dark:text-slate-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
           </svg>
           <span class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-slate-500 select-none">Settings</span>
@@ -148,7 +148,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
             aria-label="Update Profile"
           >
             <span :class="[
-              'flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0 transition-colors',
+              'flex items-center justify-center w-12 h-12 rounded-xl shrink-0 transition-colors',
               isActive('update-profile').value
                 ? 'bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-300'
                 : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 group-hover:text-blue-500'
@@ -159,7 +159,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
               </svg>
             </span>
             <span class="flex-1 text-base font-semibold">Update Profile</span>
-            <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </button>
@@ -176,7 +176,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
             aria-label="Notification Settings"
           >
             <span :class="[
-              'flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0 transition-colors',
+              'flex items-center justify-center w-12 h-12 rounded-xl shrink-0 transition-colors',
               isActive('notifications').value
                 ? 'bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-300'
                 : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 group-hover:text-blue-500'
@@ -186,14 +186,14 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
               </svg>
             </span>
             <span class="flex-1 text-base font-semibold">Notification Settings</span>
-            <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="w-5 h-5 text-gray-300 dark:text-slate-600 group-hover:text-blue-400 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </button>
 
           <!-- Appearance (Toggle) -->
           <div class="w-full flex items-center gap-4 px-4 py-5 rounded-2xl text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all duration-200 group">
-            <span class="flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/20 group-hover:text-amber-500 transition-colors">
+            <span class="flex items-center justify-center w-12 h-12 rounded-xl shrink-0 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/20 group-hover:text-amber-500 transition-colors">
               <svg v-if="isDark" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
@@ -212,7 +212,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
               :aria-checked="isDark"
               aria-label="Toggle dark mode"
               role="switch"
-              class="relative inline-flex items-center flex-shrink-0 w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
+              class="relative inline-flex items-center shrink-0 w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               :class="isDark ? 'bg-indigo-600' : 'bg-gray-200'"
             >
               <span
@@ -227,7 +227,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
     </nav>
 
     <!-- ── FOOTER ─────────────────────────────────────────────────── -->
-    <footer class="flex-shrink-0 px-8 py-6 border-t border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <footer class="shrink-0 px-8 py-6 border-t border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900">
       <button
         @click="emit('logout')"
         class="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-full border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold text-base hover:bg-emerald-50 dark:hover:bg-emerald-900/20 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900"

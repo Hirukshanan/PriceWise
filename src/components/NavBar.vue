@@ -29,7 +29,7 @@ const toggleMobileMenu = () => {
 };
 </script>
 <template>
-  <nav class="sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm transition-colors dark:bg-gray-900 dark:border-gray-800">
+  <nav class="sticky top-0 z-50 w-full bg-blue-100 border-b border-gray-100 shadow-sm transition-colors dark:bg-gray-900 dark:border-gray-800">
     <div class="w-full mx-auto flex items-center justify-between py-8 px-6 md:px-14">
       
       <!-- Logo + Hamburger -->
@@ -93,7 +93,7 @@ const toggleMobileMenu = () => {
             aria-label="Open user account sidebar"
           >
             <img
-              src="https://i.pravatar.cc/150?u=niharsana"
+              src="https://th.bing.com/th/id/OIP.NMMzLLjrbESLtFRM199LzQHaHa?w=195&h=195&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
               alt="User Profile"
               class="w-full h-full object-cover"
             />
