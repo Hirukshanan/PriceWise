@@ -37,7 +37,7 @@ const toggleMobileMenu = () => {
         <button @click="toggleMobileMenu" class="md:hidden text-gray-600 dark:text-gray-300 focus:outline-none">
           <span class="text-2xl">☰</span>
         </button>
-        <router-link to="/" class="text-2xl font-black tracking-tighter text-blue-900 dark:text-blue-400">
+        <router-link to="/" class="text-3xl font-black tracking-tighter text-blue-900 dark:text-blue-400">
           PriceWise
         </router-link>
       </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { addAlert, removeAlert, hasAlert, sharedData } from '../store';
+import { addAlert, removeAlert, hasAlert, sharedData, addToHistory } from '../store';
 
 const route = useRoute();
 const product = ref<any>(null);
@@ -43,7 +43,8 @@ const stores = ref([
   { name: 'BestBuy', price: 0, rating: 4.7, shipping: 10.00, delivery: '1 Day' },
 ]);
 
-onMounted(async () => {
+const loadProductData = async () => {
+  isLoading.value = true;
   const res = await fetch(`https://dummyjson.com/products/${route.params.id}`);
   const data = await res.json();
   product.value = data;
@@ -54,7 +55,17 @@ onMounted(async () => {
     price: +(data.price * (0.9 + Math.random() * 0.2)).toFixed(2) // Random price variation
   }));
   
+  // Record this visit in the history
+  addToHistory(data);
+  
   isLoading.value = false;
+};
+
+onMounted(loadProductData);
+
+// Watch for route ID changes to reload data when navigating between products
+watch(() => route.params.id, (newId) => {
+  if (newId) loadProductData();
 });
 
 // 2. Logic to decide "Best Sites"

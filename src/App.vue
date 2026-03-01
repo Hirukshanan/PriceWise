@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import NavBar from './components/NavBar.vue';
 import UserSidebar from './components/UserSidebar.vue';
+import ComparisonHistoryModal from './components/ComparisonHistoryModal.vue';
 import { sharedData } from './store';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const showHistoryModal = ref(false);
 
 const closeSidebar = () => {
   sharedData.sidebarOpen = false;
@@ -13,6 +16,15 @@ const closeSidebar = () => {
 const handleLogout = () => {
   closeSidebar();
   router.push('/');
+};
+
+const handleSidebarNavigate = (route: string) => {
+  closeSidebar();
+  if (route === '/history') {
+    showHistoryModal.value = true;
+  } else if (route) {
+    router.push(route);
+  }
 };
 </script>
 
@@ -46,13 +58,19 @@ const handleLogout = () => {
             >
               <UserSidebar
                 @logout="handleLogout"
-                @navigate="closeSidebar"
+                @navigate="handleSidebarNavigate"
               />
             </div>
           </Transition>
         </div>
       </Transition>
     </Teleport>
+
+    <!-- ── Comparison History Modal ─────────────────────────────── -->
+    <ComparisonHistoryModal 
+      :isOpen="showHistoryModal" 
+      @close="showHistoryModal = false" 
+    />
   </div>
 </template>
 
