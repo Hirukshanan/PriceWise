@@ -2,9 +2,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  font-size: 40px;
-}
 
 :root,
 body {

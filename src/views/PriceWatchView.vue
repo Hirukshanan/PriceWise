@@ -117,11 +117,11 @@ const getStatusConfig = (status: PriceAlert['status']) => {
   <div class="w-full min-h-screen px-4 md:px-6 lg:px-10 py-10 md:py-14">
 
     <!-- ─── Header ─────────────────────────────────────────── -->
-    <div class="mb-10 md:mb-14" style="padding-bottom: 2.5rem;">
-      <h1 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
+    <div class="mb-6 md:mb-8" style="padding-bottom: 1.5rem;">
+      <h1 class="text-2xl md:text-2xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
         🔔 My Price Alerts
       </h1>
-      <p class="text-lg md:text-xl text-gray-400 dark:text-gray-500 font-medium">
+      <p class="text-base md:text-lg text-gray-400 dark:text-gray-500 font-medium">
         Tracking prices for your favorite products.
         <span v-if="!isLoading && alerts.length > 0" class="ml-1 text-blue-600 dark:text-blue-400 font-bold">
           {{ alerts.length }} {{ alerts.length === 1 ? 'alert' : 'alerts' }} active
@@ -130,83 +130,83 @@ const getStatusConfig = (status: PriceAlert['status']) => {
     </div>
 
     <!-- ─── Loading ────────────────────────────────────────── -->
-    <div v-if="isLoading" class="flex justify-center items-center h-64">
-      <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-100 border-t-blue-600"></div>
+    <div v-if="isLoading" class="flex justify-center items-center h-48">
+      <div class="animate-spin rounded-full h-8 w-8 border-2 border-gray-200 border-t-blue-500"></div>
     </div>
 
     <!-- ─── Alert Cards Grid ───────────────────────────────── -->
     <div
       v-else-if="alerts.length > 0"
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 md:gap-6"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-5"
     >
       <TransitionGroup name="card">
         <div
           v-for="alert in alerts"
           :key="alert.productId"
-          class="group bg-white dark:bg-slate-800 rounded-2xl md:rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+          class="group bg-white dark:bg-slate-800 rounded-xl md:rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
         >
           <!-- Card Image -->
-          <div class="relative h-56 md:h-64 bg-linear-to-br bg-blue-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center p-6">
+          <div class="relative h-40 md:h-48 bg-linear-to-br bg-blue-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center p-4">
             <img
               :src="alert.thumbnail"
               :alt="alert.title"
               loading="lazy"
-              class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
+              class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
             />
             <!-- Status Badge -->
             <span
               :class="[
-                'absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs md:text-sm font-bold backdrop-blur-md',
+                'absolute top-2 right-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] md:text-xs font-bold backdrop-blur-md',
                 getStatusConfig(alert.status).bgLight,
                 getStatusConfig(alert.status).bgDark,
                 getStatusConfig(alert.status).text,
               ]"
             >
-              <span :class="['w-2 h-2 rounded-full animate-pulse', getStatusConfig(alert.status).dot]"></span>
+              <span :class="['w-1.5 h-1.5 rounded-full animate-pulse', getStatusConfig(alert.status).dot]"></span>
               {{ getStatusConfig(alert.status).label }}
             </span>
           </div>
 
           <!-- Card Body -->
-          <div class="p-5 md:p-7 flex flex-col flex-1">
+          <div class="p-4 md:p-5 flex flex-col flex-1">
             <!-- Title -->
-            <h3 class="font-bold text-lg md:text-xl text-gray-800 dark:text-white leading-snug line-clamp-2 mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 class="font-semibold text-sm md:text-base text-gray-800 dark:text-white leading-snug line-clamp-2 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
               {{ alert.title }}
             </h3>
 
             <!-- Price Comparison -->
             <div class="flex items-center justify-between mb-2">
               <div>
-                <span class="text-xs md:text-sm text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold block mb-0.5">Current</span>
+                <span class="text-[10px] md:text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold block mb-0.5">Current</span>
                 <span
-                  class="text-2xl md:text-3xl font-black"
+                  class="text-lg md:text-xl font-black"
                   :class="alert.status === 'out-of-stock' ? 'text-red-400 line-through' : alert.currentPrice <= alert.targetPrice ? 'text-emerald-500' : 'text-gray-800 dark:text-white'"
                 >
                   {{ alert.status === 'out-of-stock' ? '—' : '$' + alert.currentPrice }}
                 </span>
               </div>
               <div class="text-right">
-                <span class="text-xs md:text-sm text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold block mb-0.5">Target</span>
-                <span class="text-2xl md:text-3xl font-black text-blue-600 dark:text-blue-400">
+                <span class="text-[10px] md:text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold block mb-0.5">Target</span>
+                <span class="text-lg md:text-xl font-black text-blue-600 dark:text-blue-400">
                   ${{ alert.targetPrice }}
                 </span>
               </div>
             </div>
 
             <!-- Progress Bar -->
-            <div class="mt-3 mb-5">
+            <div class="mt-2 mb-4">
               <div class="flex items-center justify-between mb-1.5">
-                <span class="text-xs md:text-sm text-gray-400 dark:text-gray-500 font-medium">
+                <span class="text-[10px] md:text-xs text-gray-400 dark:text-gray-500 font-medium">
                   {{ alert.status === 'out-of-stock' ? 'Unavailable' : progressPercent(alert) + '% to target' }}
                 </span>
                 <span
                   v-if="alert.status !== 'out-of-stock' && alert.currentPrice > alert.targetPrice"
-                  class="text-xs md:text-sm text-gray-400 dark:text-gray-500 font-medium"
+                  class="text-[10px] md:text-xs text-gray-400 dark:text-gray-500 font-medium"
                 >
                   ${{ (alert.currentPrice - alert.targetPrice).toFixed(0) }} away
                 </span>
               </div>
-              <div class="w-full h-2.5 md:h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div class="w-full h-1.5 md:h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div
                   :class="['h-full rounded-full transition-all duration-700 ease-out', getStatusConfig(alert.status).barColor]"
                   :style="{ width: progressPercent(alert) + '%' }"
@@ -218,25 +218,25 @@ const getStatusConfig = (status: PriceAlert['status']) => {
             <div class="flex-1"></div>
 
             <!-- Action Buttons -->
-            <div class="flex items-center gap-2 md:gap-3 pt-4 border-t border-gray-100 dark:border-slate-700">
+            <div class="flex items-center gap-2 pt-3 border-t border-gray-50 dark:border-slate-700/50 mt-1">
               <router-link
                 :to="`/product/${alert.productId}`"
-                class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-sm md:text-base font-bold py-2.5 md:py-3 rounded-xl transition-all active:scale-95"
+                class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-bold py-2 rounded-lg transition-all active:scale-95"
               >
                 View Deal
               </router-link>
               <button
                 @click="openEditModal(alert)"
-                class="flex-1 text-center bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 text-sm md:text-base font-bold py-2.5 md:py-3 rounded-xl transition-all active:scale-95"
+                class="flex-1 text-center bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 text-xs md:text-sm font-bold py-2 rounded-lg transition-all active:scale-95"
               >
                 ✏️ Edit
               </button>
               <button
                 @click="deleteAlert(alert.productId)"
-                class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 rounded-xl transition-all active:scale-95"
+                class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-500 rounded-lg transition-all active:scale-95"
                 title="Delete Alert"
               >
-                <span class="text-2xl md:text-3xl">🗑️</span>
+                <span class="text-base md:text-lg">🗑️</span>
               </button>
             </div>
           </div>
@@ -245,19 +245,19 @@ const getStatusConfig = (status: PriceAlert['status']) => {
     </div>
 
     <!-- ─── Empty State ────────────────────────────────────── -->
-    <div v-else class="flex flex-col items-center justify-center py-28 md:py-36 text-center">
-      <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-8">
-        <span class="text-6xl md:text-7xl">🔕</span>
+    <div v-else class="flex flex-col items-center justify-center py-20 text-center text-gray-400 dark:text-gray-500">
+      <div class="w-24 h-24 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-6">
+        <span class="text-5xl">🔕</span>
       </div>
-      <p class="text-2xl md:text-3xl font-bold text-gray-700 dark:text-gray-200 mb-3">
+      <p class="text-xl font-bold text-gray-600 dark:text-gray-300 mb-2">
         No price alerts yet
       </p>
-      <p class="text-lg md:text-xl text-gray-400 dark:text-gray-500 mb-8 max-w-md">
+      <p class="text-base text-gray-400 dark:text-gray-500 mb-6 max-w-md">
         Start tracking products and we'll alert you when prices drop to your target.
       </p>
       <router-link
         to="/"
-        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all active:scale-95 shadow-lg shadow-blue-200 dark:shadow-blue-900/40"
+        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-base font-bold transition-all active:scale-95 shadow-sm"
       >
         🚀 Start Tracking
       </router-link>

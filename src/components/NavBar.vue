@@ -29,47 +29,47 @@ const toggleMobileMenu = () => {
 };
 </script>
 <template>
-  <nav class="sticky top-0 z-50 w-full bg-blue-100 border-b border-gray-100 shadow-sm transition-colors dark:bg-gray-900 dark:border-gray-800">
-    <div class="w-full mx-auto flex items-center justify-between py-8 px-6 md:px-14">
+  <nav class="sticky top-0 z-50 w-full bg-blue-50/90 backdrop-blur-md border-b border-gray-100/50 shadow-sm transition-colors dark:bg-gray-900/90 dark:border-gray-800/50">
+    <div class="w-full mx-auto flex items-center justify-between py-4 px-6 md:px-8">
       
       <!-- Logo + Hamburger -->
       <div class="flex items-center gap-4">
         <button @click="toggleMobileMenu" class="md:hidden text-gray-600 dark:text-gray-300 focus:outline-none">
-          <span class="text-4xl">☰</span>
+          <span class="text-2xl">☰</span>
         </button>
-        <router-link to="/" class="text-4xl md:text-5xl font-black tracking-tighter text-blue-900 dark:text-blue-400">
+        <router-link to="/" class="text-2xl font-black tracking-tighter text-blue-900 dark:text-blue-400">
           PriceWise
         </router-link>
       </div>
 
       <!-- Desktop Search -->
-      <div v-if="showSearch" class="hidden md:flex flex-1 max-w-2xl mx-12">
+      <div v-if="showSearch" class="hidden md:flex flex-1 max-w-xl mx-8">
         <div class="relative group w-full">
-          <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-2xl">🔍</span>
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
           <input
             v-model="sharedData.searchQuery"
             type="text"
             placeholder="Search products..."
-            class="text-gray-800 dark:text-white caret-gray-400 w-full bg-gray-100 dark:bg-gray-800 border-none rounded-full py-5 pl-16 pr-8 text-xl focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all outline-none"
+            class="text-gray-800 dark:text-white caret-blue-500 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-all outline-none shadow-sm"
           />
         </div>
       </div>
 
       <!-- Desktop Actions -->
-      <div class="hidden md:flex items-center gap-10 text-gray-600 dark:text-gray-300 font-medium text-xl">
+      <div class="hidden md:flex items-center gap-6 text-gray-600 dark:text-gray-300 font-medium text-sm">
 
         <button
           @click="toggleDarkMode"
-          class="flex items-center gap-2 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+          class="flex items-center gap-2 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-white dark:hover:bg-gray-800"
         >
-          <span class="text-3xl">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
 
         <router-link to="/favourites" class="flex items-center gap-2 hover:text-blue-600 transition-colors relative">
-          <span class="text-3xl">🤍</span>
+          <span class="text-xl">🤍</span>
           <span
             v-if="sharedData.favourites.length > 0"
-            class="absolute -top-2 -right-3 bg-rose-500 text-white text-base font-bold px-2.5 py-1 rounded-full border-2 border-white dark:border-gray-900"
+            class="absolute -top-1.5 -right-2.5 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900"
           >
             {{ sharedData.favourites.length }}
           </span>
@@ -77,10 +77,10 @@ const toggleMobileMenu = () => {
 
         <router-link to="/price-watch" class="flex items-center gap-2 relative hover:text-blue-600 transition-colors">
           <div class="relative">
-            <span class="text-4xl">🔔</span>
+            <span class="text-xl">🔔</span>
             <span
               v-if="sharedData.alerts.length > 0"
-              class="absolute -top-2 -right-3 bg-orange-500 text-white text-base font-bold px-2.5 py-1 rounded-full border-2 border-white dark:border-gray-900">
+              class="absolute -top-1.5 -right-2 bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">
               {{ sharedData.alerts.length }}
             </span>
           </div>
@@ -89,14 +89,12 @@ const toggleMobileMenu = () => {
         <div class="flex items-center ml-2">
           <button
             @click="toggleSidebar"
-            class="w-16 h-16 rounded-full border-2 border-gray-100 dark:border-gray-700 overflow-hidden hover:border-blue-300 transition-all"
+            class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-blue-400 transition-all flex items-center justify-center bg-white dark:bg-gray-800"
             aria-label="Open user account sidebar"
           >
-            <img
-              src="https://th.bing.com/th/id/OIP.NMMzLLjrbESLtFRM199LzQHaHa?w=195&h=195&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
-              alt="User Profile"
-              class="w-full h-full object-cover"
-            />
+            <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
           </button>
         </div>
 
@@ -105,8 +103,8 @@ const toggleMobileMenu = () => {
       <!-- Mobile Search Icon (optional, if you want search accessible without menu) -->
       <div class="md:hidden flex items-center gap-4">
         <router-link to="/price-watch" class="relative text-gray-600 dark:text-gray-300">
-          <span class="text-2xl">🔔</span>
-          <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">{{ sharedData.alerts.length }}</span>
+          <span class="text-xl">🔔</span>
+          <span class="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">{{ sharedData.alerts.length }}</span>
         </router-link>
       </div>
     </div>
@@ -116,36 +114,36 @@ const toggleMobileMenu = () => {
 
       <!-- Mobile Search -->
       <div v-if="showSearch" class="relative w-full">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">🔍</span>
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
         <input
           v-model="sharedData.searchQuery"
           type="text"
           placeholder="Search products..."
-          class="text-gray-800 dark:text-white caret-gray-400 w-full bg-gray-100 dark:bg-gray-800 border-none rounded-full py-3.5 pl-12 pr-4 text-base focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all outline-none"
+          class="text-gray-800 dark:text-white caret-blue-500 w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all outline-none"
         />
       </div>
 
       <div class="flex items-center justify-between text-gray-600 dark:text-gray-300">
-        <span class="font-semibold text-base">Dark Mode</span>
-        <button @click="toggleDarkMode" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-          <span class="text-xl">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+        <span class="font-medium text-sm">Dark Mode</span>
+        <button @click="toggleDarkMode" class="p-2 rounded-full bg-gray-50 dark:bg-gray-800">
+          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
       </div>
 
-      <router-link to="/favourites" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-semibold text-base py-2">
-        <span class="text-xl">🤍</span> Favourites
-        <span v-if="sharedData.favourites.length > 0" class="ml-auto bg-rose-500 text-white text-sm font-bold px-2 py-0.5 rounded-full">{{ sharedData.favourites.length }}</span>
+      <router-link to="/favourites" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-medium text-sm py-2">
+        <span class="text-lg">🤍</span> Favourites
+        <span v-if="sharedData.favourites.length > 0" class="ml-auto bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ sharedData.favourites.length }}</span>
       </router-link>
 
       <button
         @click="() => { toggleSidebar(); isMobileMenuOpen = false; }"
-        class="flex items-center gap-3 py-2 border-t border-gray-100 dark:border-gray-800 pt-4 text-gray-600 dark:text-gray-300 font-semibold text-base w-full"
+        class="flex items-center gap-3 py-3 border-t border-gray-100 dark:border-gray-800 pt-4 text-gray-600 dark:text-gray-300 font-medium text-sm w-full"
       >
-        <img
-          src="https://i.pravatar.cc/150?u=niharsana"
-          alt="User Profile"
-          class="w-10 h-10 rounded-full object-cover"
-        />
+        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
         <span>My Account</span>
       </button>
     </div>
