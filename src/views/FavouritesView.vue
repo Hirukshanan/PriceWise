@@ -38,8 +38,12 @@ onMounted(loadFavourites);
 
     <!-- Header -->
     <div class="mb-6 md:mb-8" style="padding-bottom: 1.5rem;">
-      <h1 class="text-2xl md:text-2xl font-black text-gray-900 dark:text-white mb-2">
-        My Favourites
+      <h1 class="flex items-center text-2xl md:text-2xl font-black text-gray-900 dark:text-white mb-2">
+        <span class="inline dark:hidden mr-2">❤️</span>
+  
+        <span class="hidden dark:inline mr-2">🤍</span>
+  
+          My Favourites
       </h1>
       <p class="text-base md:text-lg text-gray-400 dark:text-gray-500" v-if="!isLoading">
         {{ favouriteProducts.length }} {{ favouriteProducts.length === 1 ? 'item' : 'items' }} saved

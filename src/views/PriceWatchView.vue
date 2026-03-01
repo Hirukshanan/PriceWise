@@ -114,7 +114,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
 </script>
 
 <template>
-  <div class="w-full min-h-screen px-4 md:px-6 lg:px-10 py-10 md:py-14">
+  <div class="w-full mx-auto p-4 md:p-6 lg:p-8 min-h-screen">
 
     <!-- ─── Header ─────────────────────────────────────────── -->
     <div class="mb-6 md:mb-8" style="padding-bottom: 1.5rem;">
@@ -246,18 +246,18 @@ const getStatusConfig = (status: PriceAlert['status']) => {
 
     <!-- ─── Empty State ────────────────────────────────────── -->
     <div v-else class="flex flex-col items-center justify-center py-20 text-center text-gray-400 dark:text-gray-500">
-      <div class="w-24 h-24 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-6">
-        <span class="text-5xl">🔕</span>
+      <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-4">
+        <span class="text-3xl">🔕</span>
       </div>
-      <p class="text-xl font-bold text-gray-600 dark:text-gray-300 mb-2">
+      <p class="text-lg font-bold text-gray-600 dark:text-gray-300 mb-1">
         No price alerts yet
       </p>
-      <p class="text-base text-gray-400 dark:text-gray-500 mb-6 max-w-md">
+      <p class="text-sm text-gray-400 dark:text-gray-500 mb-5 max-w-sm">
         Start tracking products and we'll alert you when prices drop to your target.
       </p>
       <router-link
         to="/"
-        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-base font-bold transition-all active:scale-95 shadow-sm"
+        class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all active:scale-95 shadow-sm"
       >
         🚀 Start Tracking
       </router-link>

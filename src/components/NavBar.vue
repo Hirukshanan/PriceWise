@@ -66,7 +66,7 @@ const toggleMobileMenu = () => {
         </button>
 
         <router-link to="/favourites" class="flex items-center gap-2 hover:text-blue-600 transition-colors relative">
-          <span class="text-xl">🤍</span>
+          <span class="text-lg">{{ isDarkMode ? '🤍' : '❤️' }}</span>
           <span
             v-if="sharedData.favourites.length > 0"
             class="absolute -top-1.5 -right-2.5 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900"
