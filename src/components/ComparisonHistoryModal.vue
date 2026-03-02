@@ -49,14 +49,14 @@ const handleBackdropClick = (e: MouseEvent) => {
             class="relative w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
             <!-- Header -->
-            <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-700/50 flex items-center justify-between sticky top-0 bg-white dark:bg-slate-800 z-10">
+            <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-700/50 flex items-center justify-between sticky top-0 bg-blue-200 dark:bg-slate-800 z-10">
               <div>
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">Comparison History</h2>
               </div>
               
               <button 
                 @click="emit('close')"
-                class="p-2 -mr-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-slate-600"
+                class="p-2 -mr-2 text-gray-400 hover:text-red-600 dark:hover:text-gray-300 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-slate-600"
                 aria-label="Close modal"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
