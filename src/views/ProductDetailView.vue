@@ -91,6 +91,7 @@ const bestSites = computed(() => {
         <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base">{{ product.description }}</p>
         <div class="text-2xl md:text-3xl font-bold text-blue-600 my-1">${{ product.price }}</div>
         
+        <!-- Price Alert Button -->
         <div class="pt-2">
           <button
             v-if="!showAlertInput"
@@ -106,6 +107,7 @@ const bestSites = computed(() => {
             {{ isAlertSet ? 'Alert Set — Click to Remove' : 'Set Price Alert' }}
           </button>
 
+          <!-- Inline target price input -->
           <div v-if="showAlertInput" class="flex flex-col sm:flex-row items-center gap-2 md:gap-3 bg-orange-50 dark:bg-orange-900/20 p-3 md:p-4 rounded-xl border border-orange-200 dark:border-orange-800 mt-2">
             <label class="text-sm md:text-base font-bold text-gray-700 dark:text-gray-200 whitespace-nowrap">Target price: $</label>
             <input
@@ -134,39 +136,44 @@ const bestSites = computed(() => {
       </div>
     </div>
     
-    <div class="bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mt-32 md:mt-40">
-       
-       <div class="p-5 md:p-7 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
-         <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Marketplace Comparison</h2>
-       </div>
-       <div class="overflow-x-auto">
-         <table class="w-full text-left min-w-150">
-           <thead class="bg-gray-50 dark:bg-gray-700/80 text-gray-500 dark:text-gray-400 text-xs md:text-sm uppercase tracking-wider">
-             <tr>
-               <th class="px-5 py-3 md:py-4 font-semibold">Store Name</th>
-               <th class="px-5 py-3 md:py-4 font-semibold">Price</th>
-               <th class="px-5 py-3 md:py-4 font-semibold">Rating</th>
-               <th class="px-5 py-3 md:py-4 font-semibold">Shipping</th>
-               <th class="px-5 py-3 md:py-4 font-semibold">Delivery</th>
-             </tr>
-           </thead>
-           <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-             <tr v-for="s in stores" :key="s.name" class="hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors">
-               <td class="px-5 py-4 text-sm md:text-base font-bold text-gray-800 dark:text-white">{{ s.name }}</td>
-               <td class="px-5 py-4 text-sm md:text-base font-black text-blue-600">${{ s.price }}</td>
-               <td class="px-5 py-4 text-sm md:text-base text-orange-500 font-bold">⭐ {{ s.rating }}</td>
-               <td class="px-5 py-4 text-sm md:text-base text-gray-600 dark:text-gray-300">{{ s.shipping === 0 ? 'FREE' : '$' + s.shipping }}</td>
-               <td class="px-5 py-4 text-sm md:text-base text-gray-500 dark:text-gray-400">{{ s.delivery }}</td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
-     </div>
-
+    <div class="space-y-4 md:space-y-6 mt-8 md:mt-10">
+      <div class="p-5 md:p-6 ">
+      </div>
+    </div>
+    <div class="bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mt-6 md:mt-8">
+      
+      <div class="p-5 md:p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Marketplace Comparison</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left min-w-150">
+          <thead class="bg-gray-50 dark:bg-gray-700/80 text-gray-500 dark:text-gray-400 text-xs md:text-sm uppercase tracking-wider">
+            <tr>
+              <th class="px-5 py-3 md:py-4 font-semibold">Store Name</th>
+              <th class="px-5 py-3 md:py-4 font-semibold">Price</th>
+              <th class="px-5 py-3 md:py-4 font-semibold">Rating</th>
+              <th class="px-5 py-3 md:py-4 font-semibold">Shipping</th>
+              <th class="px-5 py-3 md:py-4 font-semibold">Delivery</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <tr v-for="s in stores" :key="s.name" class="hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors">
+              <td class="px-5 py-4 text-sm md:text-base font-bold text-gray-800 dark:text-white">{{ s.name }}</td>
+              <td class="px-5 py-4 text-sm md:text-base font-black text-blue-600">${{ s.price }}</td>
+              <td class="px-5 py-4 text-sm md:text-base text-orange-500 font-bold">⭐ {{ s.rating }}</td>
+              <td class="px-5 py-4 text-sm md:text-base text-gray-600 dark:text-gray-300">{{ s.shipping === 0 ? 'FREE' : '$' + s.shipping }}</td>
+              <td class="px-5 py-4 text-sm md:text-base text-gray-500 dark:text-gray-400">{{ s.delivery }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
     <div class="space-y-4 md:space-y-6 mt-8 md:mt-10">
       <div class="p-5 md:p-6 ">
         <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Our Best Recommendations</h2>
       </div>
+    
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <div v-for="site in bestSites" :key="site.name" 
              class="relative bg-blue-600 p-5 md:p-6 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-blue-100 dark:shadow-none overflow-hidden hover:-translate-y-1 transition-transform">
