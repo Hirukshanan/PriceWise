@@ -26,7 +26,7 @@ const handleRegister = () => {
 </script>
 
 <template>
-  <div class="min-h-[calc(100vh-72px)] w-full flex bg-[#FDF8F4] dark:bg-gray-950 transition-colors duration-300">
+  <div class="min-h-screen w-full flex bg-[#FDF8F4] dark:bg-gray-950 transition-colors duration-300">
     
     <!-- Left Decorative Panel (Hidden on mobile) -->
     <div class="hidden lg:flex flex-1 relative overflow-hidden bg-purple-900 rounded-br-[100px] shadow-2xl items-center justify-center p-12">

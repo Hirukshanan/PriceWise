@@ -4,9 +4,10 @@ import NavBar from './components/common/NavBar.vue';
 import UserSidebar from './components/common/UserSidebar.vue';
 import ComparisonHistoryModal from './components/common/ComparisonHistoryModal.vue';
 import { sharedData, logout } from './store';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 const showHistoryModal = ref(false);
 
 const closeSidebar = () => {
@@ -30,7 +31,7 @@ const handleSidebarNavigate = (route: string) => {
 
 <template>
   <div class="w-full min-h-screen bg-[#FDF8F4] dark:bg-gray-950 transition-colors duration-300">
-    <NavBar />
+    <NavBar v-if="route.path !== '/login' && route.path !== '/register'" />
     <router-view />
 
     <!-- ── Global User Sidebar Drawer ───────────────────────────── -->
