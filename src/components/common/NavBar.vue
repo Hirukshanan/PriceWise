@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { sharedData } from '../store';
+import { sharedData } from '../../store';
 
 const toggleSidebar = () => {
   sharedData.sidebarOpen = !sharedData.sidebarOpen;

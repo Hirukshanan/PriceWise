@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { sharedData, clearHistory } from '../store';
+import { sharedData, clearHistory } from '../../store';
 
 const props = defineProps<{
   isOpen: boolean;

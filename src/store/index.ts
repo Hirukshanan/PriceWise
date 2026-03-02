@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
-import type { StoredAlert } from './types/alert';
-import type { Product } from './types/product';
+import type { StoredAlert } from '../types/alert';
+import type { Product } from '../types/product';
 
 // ─── Favourites ─────────────────────────────────────────────────
 function loadFavourites(): number[] {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import NavBar from './components/NavBar.vue';
-import UserSidebar from './components/UserSidebar.vue';
-import ComparisonHistoryModal from './components/ComparisonHistoryModal.vue';
+import NavBar from './components/common/NavBar.vue';
+import UserSidebar from './components/common/UserSidebar.vue';
+import ComparisonHistoryModal from './components/common/ComparisonHistoryModal.vue';
 import { sharedData } from './store';
 import { useRouter } from 'vue-router';
 
