@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { sharedData } from '../../store';
 
+const router = useRouter();
+
 const toggleSidebar = () => {
-  sharedData.sidebarOpen = !sharedData.sidebarOpen;
+  if (sharedData.isLoggedIn) {
+    sharedData.sidebarOpen = !sharedData.sidebarOpen;
+  } else {
+    router.push('/login');
+  }
 };
 
 const route = useRoute();

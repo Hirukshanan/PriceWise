@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import NavBar from './components/common/NavBar.vue';
 import UserSidebar from './components/common/UserSidebar.vue';
 import ComparisonHistoryModal from './components/common/ComparisonHistoryModal.vue';
-import { sharedData } from './store';
+import { sharedData, logout } from './store';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -14,7 +14,7 @@ const closeSidebar = () => {
 };
 
 const handleLogout = () => {
-  closeSidebar();
+  logout();
   router.push('/');
 };
 

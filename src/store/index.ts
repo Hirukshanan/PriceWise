@@ -46,6 +46,19 @@ function saveHistory(history: HistoryItem[]) {
   localStorage.setItem('pricewise_history', JSON.stringify(history));
 }
 
+// ─── Auth State ─────────────────────────────────────────────────
+function loadIsLoggedIn(): boolean {
+  try {
+    return localStorage.getItem('pricewise_logged_in') === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function saveIsLoggedIn(status: boolean) {
+  localStorage.setItem('pricewise_logged_in', status ? 'true' : 'false');
+}
+
 // ─── Shared Reactive State ──────────────────────────────────────
 export const sharedData = reactive({
   searchQuery: '',
@@ -53,7 +66,19 @@ export const sharedData = reactive({
   alerts: loadAlerts() as StoredAlert[],
   history: loadHistory() as HistoryItem[],
   sidebarOpen: false,
+  isLoggedIn: loadIsLoggedIn(),
 });
+
+export function login() {
+  sharedData.isLoggedIn = true;
+  saveIsLoggedIn(true);
+}
+
+export function logout() {
+  sharedData.isLoggedIn = false;
+  saveIsLoggedIn(false);
+  sharedData.sidebarOpen = false;
+}
 
 // ─── Favourite Actions ──────────────────────────────────────────
 export function toggleFavourite(id: number) {
