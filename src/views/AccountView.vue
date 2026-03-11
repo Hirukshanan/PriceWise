@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import UserSidebar from '../components/UserSidebar.vue';
+import UserSidebar from '../components/common/UserSidebar.vue';
 
 const router = useRouter();
 
