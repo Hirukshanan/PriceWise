@@ -33,7 +33,7 @@ const handleRegister = () => {
       <!-- Background gradients & decorations -->
       <div class="absolute inset-0 bg-linear-to-br from-indigo-600/80 to-purple-900/90 mix-blend-multiply z-10" />
       <div class="absolute top-0 right-0 w-full h-full opacity-30 z-0">
-        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover animate-[spin_60s_linear_infinite_reverse]">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover animate-[spin_40s_linear_infinite_reverse]">
           <path fill="#a855f7" d="M38.1,-63.9C49.9,-53.4,60.1,-43.3,66.5,-30.5C72.9,-17.7,75.4,-2.2,73.5,13.1C71.6,28.4,65.3,43.5,54.8,53.8C44.3,64.1,29.6,69.5,13.7,73.7C-2.2,77.9,-19.3,80.9,-34.8,75.6C-50.3,70.3,-64.1,56.7,-72.1,40.9C-80.1,25.1,-82.3,7,-77.9,-9.5C-73.5,-26,-62.5,-40.9,-49.5,-51C-36.5,-61.1,-21.5,-66.4,-3.9,-61.7C13.7,-57,26.3,-74.4,38.1,-63.9Z" transform="translate(200 200) scale(1.1)" />
         </svg>
       </div>
@@ -67,7 +67,7 @@ const handleRegister = () => {
           <p class="text-gray-500 dark:text-gray-400 mt-2">Create a new account</p>
         </div>
 
-        <div class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-100 dark:border-gray-800 rounded-3xl p-8 sm:p-10 shadow-2xl animate-[fadeIn_0.5s_ease-out]">
+        <div class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-100 dark:border-gray-800 rounded-3xl p-10 sm:p-14 shadow-2xl animate-[fadeIn_0.5s_ease-out]">
           <div class="mb-8">
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sign Up</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Already have an account? <router-link to="/login" class="text-purple-600 dark:text-purple-400 font-semibold hover:underline">Sign in</router-link></p>
@@ -75,81 +75,81 @@ const handleRegister = () => {
 
           <form @submit.prevent="handleRegister" class="space-y-5">
             <!-- Full Name Input -->
-            <div class="space-y-1.5 relative group">
-              <label for="fullName" class="text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+            <div class="space-y-2 relative group">
+              <label for="fullName" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Full Name</label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-purple-500 group-focus-within:text-purple-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                   </svg>
                 </div>
                 <input
-                  v-model="fullName"
-                  type="text"
-                  id="fullName"
-                  required
-                  placeholder="John Doe"
-                  class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all sm:text-sm"
+                   v-model="fullName"
+                   type="text"
+                   id="fullName"
+                   required
+                   placeholder="John Doe"
+                   class="block w-full pl-12 pr-4 py-3.5 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent group-hover:ring-purple-300 dark:group-hover:ring-purple-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
 
             <!-- Email Input -->
-            <div class="space-y-1.5 relative group">
-              <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+            <div class="space-y-2 relative group">
+              <label for="email" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Email Address</label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-purple-500 group-focus-within:text-purple-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="m2 4 10 10 10-10"/>
                   </svg>
                 </div>
                 <input
-                  v-model="email"
-                  type="email"
-                  id="email"
-                  required
-                  placeholder="you@example.com"
-                  class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all sm:text-sm"
+                   v-model="email"
+                   type="email"
+                   id="email"
+                   required
+                   placeholder="you@example.com"
+                   class="block w-full pl-12 pr-4 py-3.5 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent group-hover:ring-purple-300 dark:group-hover:ring-purple-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
 
             <!-- Password Input -->
-            <div class="space-y-1.5 relative group">
-              <label for="password" class="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <div class="space-y-2 relative group">
+              <label for="password" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Password</label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-purple-500 group-focus-within:text-purple-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                   </svg>
                 </div>
                 <input
-                  v-model="password"
-                  type="password"
-                  id="password"
-                  required
-                  placeholder="••••••••"
-                  class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all sm:text-sm"
+                   v-model="password"
+                   type="password"
+                   id="password"
+                   required
+                   placeholder="••••••••"
+                   class="block w-full pl-12 pr-4 py-3.5 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent group-hover:ring-purple-300 dark:group-hover:ring-purple-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
 
             <!-- Confirm Password Input -->
-            <div class="space-y-1.5 relative group">
-              <label for="confirmPassword" class="text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
+            <div class="space-y-2 relative group">
+              <label for="confirmPassword" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Confirm Password</label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-purple-500 group-focus-within:text-purple-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
                   </svg>
                 </div>
                 <input
-                  v-model="confirmPassword"
-                  type="password"
-                  id="confirmPassword"
-                  required
-                  placeholder="••••••••"
-                  class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all sm:text-sm"
+                   v-model="confirmPassword"
+                   type="password"
+                   id="confirmPassword"
+                   required
+                   placeholder="••••••••"
+                   class="block w-full pl-12 pr-4 py-3.5 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent group-hover:ring-purple-300 dark:group-hover:ring-purple-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
@@ -174,11 +174,11 @@ const handleRegister = () => {
 
             <!-- Submit Button -->
             <button
-              type="submit"
-              class="w-full flex justify-center py-3.5 px-4 mt-2 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-gray-900 transform transition-all active:scale-[0.98] hover:shadow-purple-500/25"
-            >
-              Create Account
-            </button>
+               type="submit"
+               class="w-full relative group flex justify-center py-4 px-4 mt-4 border border-transparent rounded-2xl shadow-lg shadow-purple-500/30 text-base font-black text-white bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 bg-size-[200%_auto] hover:bg-position-[right_center] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-gray-900 transform transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0"
+             >
+               Create Account
+             </button>
           </form>
         </div>
       </div>

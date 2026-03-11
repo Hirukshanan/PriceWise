@@ -59,7 +59,7 @@ const handleLogin = () => {
           <p class="text-gray-500 dark:text-gray-400 mt-2">Welcome back! Please enter your details.</p>
         </div>
 
-        <div class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-100 dark:border-gray-800 rounded-3xl p-8 sm:p-10 shadow-2xl animate-[fadeIn_0.5s_ease-out]">
+        <div class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-100 dark:border-gray-800 rounded-3xl p-10 sm:p-14 shadow-2xl animate-[fadeIn_0.5s_ease-out]">
           <div class="mb-8">
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sign In</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Don't have an account? <router-link to="/register" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Sign up for free</router-link></p>
@@ -67,10 +67,10 @@ const handleLogin = () => {
 
           <form @submit.prevent="handleLogin" class="space-y-6">
             <!-- Email Input -->
-            <div class="space-y-2 relative group">
-              <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+            <div class="space-y-3 relative group">
+              <label for="email" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Email Address</label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-blue-500 group-focus-within:text-blue-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="m2 4 10 10 10-10"/>
                   </svg>
@@ -81,19 +81,19 @@ const handleLogin = () => {
                   id="email"
                   required
                   placeholder="you@example.com"
-                  class="block w-full pl-11 pr-4 py-3.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all sm:text-sm"
+                  class="block w-full pl-12 pr-4 py-4 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent group-hover:ring-blue-300 dark:group-hover:ring-blue-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
 
             <!-- Password Input -->
-            <div class="space-y-2 relative group">
+            <div class="space-y-3 relative group">
               <div class="flex items-center justify-between">
-                <label for="password" class="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">Forgot password?</a>
+                <label for="password" class="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Password</label>
+                
               </div>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-hover:text-blue-500 group-focus-within:text-blue-600 transition-colors">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                   </svg>
@@ -104,40 +104,43 @@ const handleLogin = () => {
                   id="password"
                   required
                   placeholder="••••••••"
-                  class="block w-full pl-11 pr-4 py-3.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-800/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all sm:text-sm"
+                  class="block w-full pl-12 pr-4 py-4 border-2 border-transparent ring-1 ring-gray-200 dark:ring-gray-700 rounded-2xl bg-gray-50/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent group-hover:ring-blue-300 dark:group-hover:ring-blue-600 transition-all text-base shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
 
-            <!-- Remember Me -->
-            <div class="flex items-center">
-              <input
-                v-model="rememberMe"
-                id="remember"
-                type="checkbox"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-800 cursor-pointer"
-              />
-              <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                Remember me for 30 days
-              </label>
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between mt-6 mb-2">
+              <div class="flex items-center">
+                <input
+                  v-model="rememberMe"
+                  id="remember"
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-800 cursor-pointer"
+                />
+                <label for="remember" class="ml-2 block text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                  Remember me
+                </label>
+              </div>
+              <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-bold transition-colors">Forgot password?</a>
             </div>
 
             <!-- Submit Button -->
             <button
-              type="submit"
-              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transform transition-all active:scale-[0.98] hover:shadow-blue-500/25"
-            >
-              Sign In
-            </button>
+               type="submit"
+               class="w-full relative group flex justify-center py-4 px-4 border border-transparent rounded-2xl shadow-lg shadow-blue-500/30 text-base font-black text-white bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 bg-size-[200%_auto] hover:bg-position-[right_center] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transform transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0"
+             >
+               Sign In
+             </button>
           </form>
 
           <!-- Divider -->
-          <div class="mt-8 relative hidden"> <!-- Hiding social since not requested explicitly except in plan, but adding it makes it premium -->
+          <div class="mt-8 relative hidden">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
             </div>
             <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">Or continue with</span>
+              <span class="px-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl text-gray-500 dark:text-gray-400 font-medium tracking-wide">Or continue with</span>
             </div>
           </div>
 
@@ -145,28 +148,6 @@ const handleLogin = () => {
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
             </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">Or continue with</span>
-            </div>
-          </div>
-
-          <!-- Social Buttons -->
-          <div class="mt-6 grid grid-cols-2 gap-4">
-            <button type="button" class="w-full inline-flex justify-center items-center py-2.5 px-4 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xs bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-              </svg>
-              <span class="ml-2">Google</span>
-            </button>
-            <button type="button" class="w-full inline-flex justify-center items-center py-2.5 px-4 border border-gray-300 dark:border-gray-700 rounded-xl shadow-xs bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-              <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.15 2.95.93 3.78 2.04-3.26 2.15-2.69 6.07.66 7.39a10.9 10.9 0 01-3.09 3.58zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2 4.36-3.74 4.25z"/>
-              </svg>
-              <span class="ml-2">Apple</span>
-            </button>
           </div>
         </div>
       </div>
