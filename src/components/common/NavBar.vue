@@ -107,7 +107,13 @@ const toggleMobileMenu = () => {
       </div>
 
       <!-- Mobile Search Icon (optional, if you want search accessible without menu) -->
-      <div class="md:hidden flex items-center gap-4">
+      <div class="md:hidden flex items-center gap-3">
+        <button
+          @click="toggleDarkMode"
+          class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition-colors"
+        >
+          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+        </button>
         <router-link to="/price-watch" class="relative text-gray-600 dark:text-gray-300">
           <span class="text-xl">🔔</span>
           <span class="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900">{{ sharedData.alerts.length }}</span>
@@ -129,23 +135,22 @@ const toggleMobileMenu = () => {
         />
       </div>
 
-      <div class="flex items-center justify-between text-gray-600 dark:text-gray-300">
-        <span class="font-medium text-sm">Dark Mode</span>
-        <button @click="toggleDarkMode" class="p-2 rounded-full bg-gray-50 dark:bg-gray-800">
-          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
-        </button>
-      </div>
 
-      <router-link to="/favourites" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-medium text-sm py-2">
-        <span class="text-lg">🤍</span> Favourites
+
+
+      <router-link to="/favourites" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 font-medium text-sm py-3">
+        <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+          <span class="text-base">🤍</span>
+        </div>
+        <span>Favourites</span>
         <span v-if="sharedData.favourites.length > 0" class="ml-auto bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ sharedData.favourites.length }}</span>
       </router-link>
 
       <button
         @click="() => { toggleSidebar(); isMobileMenuOpen = false; }"
-        class="flex items-center gap-3 py-3 border-t border-gray-100 dark:border-gray-800 pt-4 text-gray-600 dark:text-gray-300 font-medium text-sm w-full"
+        class="flex items-center gap-3 py-3 border-t border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 font-medium text-sm w-full"
       >
-        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+        <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>

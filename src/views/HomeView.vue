@@ -62,17 +62,17 @@ onMounted(loadDashboardData);
 </script>
 
 <template>
-  <div class="w-full mx-auto p-4 md:p-6 lg:p-8">
+  <div class="w-full mx-auto p-2 sm:p-4 md:p-6 lg:p-8">
 
     <div class="flex-1 overflow-hidden pb-16">
 
-      <div class="flex items-center gap-2 md:gap-3 mb-6 md:mb-8 overflow-x-auto pb-2 no-scrollbar">
+      <div class="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6 md:mb-8 overflow-x-auto pb-2 no-scrollbar">
         <button
           v-for="cat in categories"
           :key="cat"
           @click="selectedCategory = cat"
           :class="[
-            'px-4 py-1.5 md:px-5 md:py-2 rounded-full text-sm md:text-sm font-semibold transition-all shrink-0 border whitespace-nowrap',
+            'px-3 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all shrink-0 border whitespace-nowrap',
             selectedCategory === cat
               ? 'bg-blue-500 text-white border-blue-500 shadow-sm shadow-blue-500/30'
               : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-800'
@@ -83,7 +83,7 @@ onMounted(loadDashboardData);
       </div>
 
       <div v-if="!isLoading">
-        <div v-if="filteredProducts.length > 0" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-5">
+        <div v-if="filteredProducts.length > 0" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-4 md:gap-5">
           <ProductCard 
             v-for="item in filteredProducts" 
             :key="item.id" 
@@ -109,8 +109,8 @@ onMounted(loadDashboardData);
     </div>
 
     <!-- Footer -->
-    <footer class="mt-32 border-t-4 border-blue-500 bg-white dark:bg-gray-900 pt-12 pb-8 px-4 md:px-8 lg:px-12">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer class="mt-16 sm:mt-32 border-t-4 border-blue-500 bg-white dark:bg-gray-900 pt-8 sm:pt-12 pb-6 sm:pb-8 px-4 md:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
         
         <!-- Brand Column -->
         <div>
