@@ -64,7 +64,7 @@ onMounted(loadDashboardData);
 <template>
   <div class="w-full mx-auto p-4 md:p-6 lg:p-8">
 
-    <div class="flex-1 overflow-hidden">
+    <div class="flex-1 overflow-hidden pb-16">
 
       <div class="flex items-center gap-2 md:gap-3 mb-6 md:mb-8 overflow-x-auto pb-2 no-scrollbar">
         <button
@@ -107,6 +107,65 @@ onMounted(loadDashboardData);
       </div>
 
     </div>
+
+    <!-- Footer -->
+    <footer class="mt-32 border-t-4 border-blue-500 bg-white dark:bg-gray-900 pt-12 pb-8 px-4 md:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        
+        <!-- Brand Column -->
+        <div>
+          <h3 class="text-xl font-extrabold text-blue-600 dark:text-blue-400 mb-3">PriceWise</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-5">
+            The world's most trusted comparison shopping engine. Save time and money on every purchase.
+          </p>
+          <div class="flex items-center gap-3">
+            <!-- Twitter/X icon -->
+            <a href="#" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.38 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.32 3.91A12.16 12.16 0 0 1 3 4.79a4.28 4.28 0 0 0 1.32 5.72 4.24 4.24 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2 4.27 4.27 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.59 8.59 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.72 8.72 0 0 0 23 6.29a8.49 8.49 0 0 1-2.54.7z"/></svg>
+            </a>
+            <!-- LinkedIn/Square icon -->
+            <a href="#" class="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" ry="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Company Column -->
+        <div>
+          <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-4 tracking-wide">Company</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">About Us</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Careers</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Press</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources Column -->
+        <div>
+          <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-4 tracking-wide">Resources</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Blog</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Help Center</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Seller Guide</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Comparison API</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Column -->
+        <div>
+          <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-4 tracking-wide">Legal</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Cookie Policy</a></li>
+            <li><a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Copyright Info</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
   </div>
 </template>
 
