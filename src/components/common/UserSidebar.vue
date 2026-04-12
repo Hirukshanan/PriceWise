@@ -1,24 +1,19 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
-// ─── Props ───────────────────────────────────────────────────────
-interface Props {
-  userName?: string;
-  userEmail?: string;
-  userAvatar?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  userName: 'user',
-  userEmail: 'user@pricewise.com',
-  userAvatar: 'https://tse2.mm.bing.net/th/id/OIP.U_1oQ5CZ0Kl2L6UggZwlpwAAAA?w=256&h=256&rs=1&pid=ImgDetMain&o=7&rm=3',
-});
+import { sharedData } from '../../store';
 
 // ─── Emits ───────────────────────────────────────────────────────
 const emit = defineEmits<{
   logout: [];
   navigate: [route: string];
 }>();
+
+// ─── User profile from store ─────────────────────────────────────
+const userName = computed(() => sharedData.userProfile.name);
+const userEmail = computed(() => sharedData.userProfile.email);
+const userAvatar = computed(() => sharedData.userProfile.avatar);
+
+
 
 // ─── Dark Mode ───────────────────────────────────────────────────
 const isDark = ref(document.documentElement.classList.contains('dark'));
@@ -45,7 +40,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
 
 <template>
   <aside
-    class="flex flex-col w-80 max-w-[85vw] h-screen max-h-[100dvh] bg-white dark:bg-slate-900 border-r border-gray-100 dark:border-slate-800 shadow-2xl transition-colors duration-300"
+    class="flex flex-col w-80 max-w-[85vw] h-screen max-h-dvh bg-white dark:bg-slate-900 border-r border-gray-100 dark:border-slate-800 shadow-2xl transition-colors duration-300"
     aria-label="User account sidebar"
   >
     <!-- ── HEADER ────────────────────────────────────────────────── -->
@@ -68,15 +63,15 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
       <div class="relative flex items-center gap-3">
         <!-- Avatar -->
         <div class="shrink-0 w-14 h-14 rounded-full ring-2 ring-white dark:ring-slate-700 shadow-lg overflow-hidden">
-          <img :src="props.userAvatar" :alt="`${props.userName} avatar`" class="w-full h-full object-cover" />
+          <img :src="userAvatar" :alt="`${userName} avatar`" class="w-full h-full object-cover" />
         </div>
         <!-- Name & Email -->
         <div class="min-w-0">
           <p class="text-lg font-bold text-gray-900 dark:text-slate-50 leading-tight truncate">
-            {{ props.userName }}
+            {{ userName }}
           </p>
           <p class="mt-0.5 text-sm text-gray-500 dark:text-slate-400 truncate">
-            {{ props.userEmail }}
+            {{ userEmail }}
           </p>
         </div>
       </div>

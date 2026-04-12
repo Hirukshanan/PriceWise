@@ -3,12 +3,16 @@ import { ref } from 'vue';
 import NavBar from './components/common/NavBar.vue';
 import UserSidebar from './components/common/UserSidebar.vue';
 import ComparisonHistoryModal from './components/common/ComparisonHistoryModal.vue';
+import UpdateProfileModal from './components/common/UpdateProfileModal.vue';
+import NotificationSettingsModal from './components/common/NotificationSettingsModal.vue';
 import { sharedData, logout } from './store';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
 const showHistoryModal = ref(false);
+const showProfileModal = ref(false);
+const showNotificationsModal = ref(false);
 
 const closeSidebar = () => {
   sharedData.sidebarOpen = false;
@@ -23,6 +27,10 @@ const handleSidebarNavigate = (route: string) => {
   closeSidebar();
   if (route === '/history') {
     showHistoryModal.value = true;
+  } else if (route === '/profile') {
+    showProfileModal.value = true;
+  } else if (route === '/notifications') {
+    showNotificationsModal.value = true;
   } else if (route) {
     router.push(route);
   }
@@ -71,6 +79,18 @@ const handleSidebarNavigate = (route: string) => {
     <ComparisonHistoryModal 
       :isOpen="showHistoryModal" 
       @close="showHistoryModal = false" 
+    />
+
+    <!-- ── Update Profile Modal ──────────────────────────────────── -->
+    <UpdateProfileModal
+      :isOpen="showProfileModal"
+      @close="showProfileModal = false"
+    />
+
+    <!-- ── Notification Settings Modal ───────────────────────────── -->
+    <NotificationSettingsModal
+      :isOpen="showNotificationsModal"
+      @close="showNotificationsModal = false"
     />
   </div>
 </template>

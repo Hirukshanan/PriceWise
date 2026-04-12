@@ -59,6 +59,96 @@ function saveIsLoggedIn(status: boolean) {
   localStorage.setItem('pricewise_logged_in', status ? 'true' : 'false');
 }
 
+// ─── User Profile ───────────────────────────────────────────────
+export interface UserProfile {
+  name: string;
+  email: string;
+  phone: string;
+  location: string;
+  avatar: string;
+}
+
+const defaultProfile: UserProfile = {
+  name: 'user',
+  email: 'user@pricewise.com',
+  phone: '',
+  location: '',
+  avatar: 'https://tse2.mm.bing.net/th/id/OIP.U_1oQ5CZ0Kl2L6UggZwlpwAAAA?w=256&h=256&rs=1&pid=ImgDetMain&o=7&rm=3',
+};
+
+function loadUserProfile(): UserProfile {
+  try {
+    const stored = localStorage.getItem('pricewise_user_profile');
+    return stored ? { ...defaultProfile, ...JSON.parse(stored) } : { ...defaultProfile };
+  } catch {
+    return { ...defaultProfile };
+  }
+}
+
+function saveUserProfile(profile: UserProfile) {
+  localStorage.setItem('pricewise_user_profile', JSON.stringify(profile));
+}
+
+// ─── Notification Settings ──────────────────────────────────────
+export interface NotificationSettings {
+  emailAlerts: boolean;
+  pushNotifications: boolean;
+  priceDropAlerts: boolean;
+  backInStockAlerts: boolean;
+  weeklyDigest: boolean;
+  dealOfTheDay: boolean;
+  priceDropThreshold: number;
+  quietHoursEnabled: boolean;
+  quietHoursStart: string;
+  quietHoursEnd: string;
+}
+
+const defaultNotificationSettings: NotificationSettings = {
+  emailAlerts: true,
+  pushNotifications: true,
+  priceDropAlerts: true,
+  backInStockAlerts: false,
+  weeklyDigest: true,
+  dealOfTheDay: false,
+  priceDropThreshold: 10,
+  quietHoursEnabled: false,
+  quietHoursStart: '22:00',
+  quietHoursEnd: '07:00',
+};
+
+function loadNotificationSettings(): NotificationSettings {
+  try {
+    const stored = localStorage.getItem('pricewise_notification_settings');
+    return stored ? { ...defaultNotificationSettings, ...JSON.parse(stored) } : { ...defaultNotificationSettings };
+  } catch {
+    return { ...defaultNotificationSettings };
+  }
+}
+
+function saveNotificationSettings(settings: NotificationSettings) {
+  localStorage.setItem('pricewise_notification_settings', JSON.stringify(settings));
+}
+
+// ─── Registered Users ───────────────────────────────────────────
+export interface RegisteredUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+function loadRegisteredUsers(): RegisteredUser[] {
+  try {
+    const stored = localStorage.getItem('pricewise_registered_users');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRegisteredUsers(users: RegisteredUser[]) {
+  localStorage.setItem('pricewise_registered_users', JSON.stringify(users));
+}
+
 // ─── Shared Reactive State ──────────────────────────────────────
 export const sharedData = reactive({
   searchQuery: '',
@@ -67,7 +157,64 @@ export const sharedData = reactive({
   history: loadHistory() as HistoryItem[],
   sidebarOpen: false,
   isLoggedIn: loadIsLoggedIn(),
+  userProfile: loadUserProfile(),
+  notificationSettings: loadNotificationSettings(),
 });
+
+// ─── Auth Actions ───────────────────────────────────────────────
+export function registerUser(name: string, email: string, password: string): { success: boolean; error?: string } {
+  const users = loadRegisteredUsers();
+
+  // Check if email already exists
+  if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+    return { success: false, error: 'An account with this email already exists' };
+  }
+
+  // Save the new user
+  users.push({ name, email, password });
+  saveRegisteredUsers(users);
+
+  // Auto-login after registration
+  sharedData.isLoggedIn = true;
+  saveIsLoggedIn(true);
+
+  // Set profile from registration data
+  sharedData.userProfile = {
+    ...sharedData.userProfile,
+    name,
+    email,
+  };
+  saveUserProfile(sharedData.userProfile);
+
+  return { success: true };
+}
+
+export function loginUser(email: string, password: string): { success: boolean; error?: string } {
+  const users = loadRegisteredUsers();
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+  if (!user) {
+    return { success: false, error: 'No account found with this email' };
+  }
+
+  if (user.password !== password) {
+    return { success: false, error: 'Incorrect password' };
+  }
+
+  // Successful login
+  sharedData.isLoggedIn = true;
+  saveIsLoggedIn(true);
+
+  // Load user profile
+  sharedData.userProfile = {
+    ...sharedData.userProfile,
+    name: user.name,
+    email: user.email,
+  };
+  saveUserProfile(sharedData.userProfile);
+
+  return { success: true };
+}
 
 export function login() {
   sharedData.isLoggedIn = true;
@@ -78,6 +225,18 @@ export function logout() {
   sharedData.isLoggedIn = false;
   saveIsLoggedIn(false);
   sharedData.sidebarOpen = false;
+}
+
+// ─── Profile Actions ────────────────────────────────────────────
+export function updateUserProfile(updates: Partial<UserProfile>) {
+  Object.assign(sharedData.userProfile, updates);
+  saveUserProfile(sharedData.userProfile);
+}
+
+// ─── Notification Settings Actions ──────────────────────────────
+export function updateNotificationSettings(updates: Partial<NotificationSettings>) {
+  Object.assign(sharedData.notificationSettings, updates);
+  saveNotificationSettings(sharedData.notificationSettings);
 }
 
 // ─── Favourite Actions ──────────────────────────────────────────
