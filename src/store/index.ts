@@ -129,6 +129,22 @@ function saveNotificationSettings(settings: NotificationSettings) {
   localStorage.setItem('pricewise_notification_settings', JSON.stringify(settings));
 }
 
+// ─── Dark Mode ──────────────────────────────────────────────────
+function loadDarkMode(): boolean {
+  try {
+    const stored = localStorage.getItem('pricewise_dark_mode');
+    if (stored !== null) return stored === 'true';
+    // Respect system preference as default
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+  } catch {
+    return false;
+  }
+}
+
+function saveDarkMode(enabled: boolean) {
+  localStorage.setItem('pricewise_dark_mode', enabled ? 'true' : 'false');
+}
+
 // ─── Registered Users ───────────────────────────────────────────
 export interface RegisteredUser {
   name: string;
@@ -159,7 +175,24 @@ export const sharedData = reactive({
   isLoggedIn: loadIsLoggedIn(),
   userProfile: loadUserProfile(),
   notificationSettings: loadNotificationSettings(),
+  isDarkMode: loadDarkMode(),
 });
+
+// Apply dark mode class on initial load
+if (sharedData.isDarkMode) {
+  document.documentElement.classList.add('dark');
+}
+
+// ─── Dark Mode Actions ──────────────────────────────────────────
+export function toggleDarkMode() {
+  sharedData.isDarkMode = !sharedData.isDarkMode;
+  if (sharedData.isDarkMode) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  saveDarkMode(sharedData.isDarkMode);
+}
 
 // ─── Auth Actions ───────────────────────────────────────────────
 export function registerUser(name: string, email: string, password: string): { success: boolean; error?: string } {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { sharedData } from '../../store';
+import { sharedData, toggleDarkMode } from '../../store';
 
 const router = useRouter();
 
@@ -16,19 +16,7 @@ const toggleSidebar = () => {
 const route = useRoute();
 const showSearch = computed(() => route.path !== '/favourites' && route.path !== '/price-watch');
 
-const isDarkMode = ref(false);
 const isMobileMenuOpen = ref(false);
-
-// Function to toggle dark mode and apply the 'dark' class to the html element.
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  
-  if (isDarkMode.value) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-};
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -68,11 +56,11 @@ const toggleMobileMenu = () => {
           @click="toggleDarkMode"
           class="flex items-center gap-2 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-white dark:hover:bg-gray-800"
         >
-          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+          <span class="text-lg">{{ sharedData.isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
 
         <router-link to="/favourites" class="flex items-center gap-2 hover:text-blue-600 transition-colors relative">
-          <span class="text-lg">{{ isDarkMode ? '🤍' : '❤️' }}</span>
+          <span class="text-lg">{{ sharedData.isDarkMode ? '🤍' : '❤️' }}</span>
           <span
             v-if="sharedData.favourites.length > 0"
             class="absolute -top-1.5 -right-2.5 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-gray-900"
@@ -112,7 +100,7 @@ const toggleMobileMenu = () => {
           @click="toggleDarkMode"
           class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition-colors"
         >
-          <span class="text-lg">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+          <span class="text-lg">{{ sharedData.isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
         <router-link to="/price-watch" class="relative text-gray-600 dark:text-gray-300">
           <span class="text-xl">🔔</span>

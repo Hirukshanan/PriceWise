@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { sharedData } from '../../store';
+import { sharedData, toggleDarkMode } from '../../store';
 
 // ─── Emits ───────────────────────────────────────────────────────
 const emit = defineEmits<{
@@ -15,17 +15,7 @@ const userAvatar = computed(() => sharedData.userProfile.avatar);
 
 
 
-// ─── Dark Mode ───────────────────────────────────────────────────
-const isDark = ref(document.documentElement.classList.contains('dark'));
 
-const toggleAppearance = () => {
-  isDark.value = !isDark.value;
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-};
 
 // ─── Active item tracking ─────────────────────────────────────────
 const activeItem = ref<string | null>(null);
@@ -189,7 +179,7 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
           <!-- Appearance (Toggle) -->
           <div class="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all duration-200 group">
             <span class="flex items-center justify-center w-9 h-9 rounded-lg shrink-0 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/20 group-hover:text-amber-500 transition-colors">
-              <svg v-if="isDark" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg v-if="sharedData.isDarkMode" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
               <svg v-else class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -203,16 +193,16 @@ const isActive = (key: string) => computed(() => activeItem.value === key);
             <span class="flex-1 text-sm font-semibold">Appearance</span>
             <!-- Toggle switch -->
             <button
-              @click="toggleAppearance"
-              :aria-checked="isDark"
+              @click="toggleDarkMode"
+              :aria-checked="sharedData.isDarkMode"
               aria-label="Toggle dark mode"
               role="switch"
               class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-              :class="isDark ? 'bg-indigo-600' : 'bg-gray-200'"
+              :class="sharedData.isDarkMode ? 'bg-indigo-600' : 'bg-gray-200'"
             >
               <span
                 class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                :class="isDark ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                :class="sharedData.isDarkMode ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                 aria-hidden="true"
               />
             </button>
