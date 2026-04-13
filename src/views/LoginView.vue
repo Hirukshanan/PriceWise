@@ -578,14 +578,6 @@ const handleLogin = () => {
   80% { transform: translateX(4px); }
 }
 
-:global(.dark) .error-banner {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-:global(.dark) .error-banner span {
-  color: #fca5a5;
-}
 
 /* ─── Footer ───────────────────────────────────────── */
 .card-footer {
@@ -613,61 +605,6 @@ const handleLogin = () => {
   text-decoration: underline;
 }
 
-/* ─── Dark Mode ─────────────────────────────────────── */
-:global(.dark) .login-page {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-}
-
-:global(.dark) .orb-1 { opacity: 0.2; }
-:global(.dark) .orb-2 { opacity: 0.15; }
-:global(.dark) .orb-3 { opacity: 0.1; }
-
-:global(.dark) .login-card {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(100, 116, 139, 0.2);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 2px 8px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-:global(.dark) .brand h1 {
-  background: linear-gradient(135deg, #f1f5f9, #cbd5e1);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-:global(.dark) .card-header h2 { color: #f1f5f9; }
-:global(.dark) .card-header p { color: #94a3b8; }
-
-:global(.dark) .input-group input {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: #334155;
-  color: #f1f5f9;
-}
-
-:global(.dark) .input-group input:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15), 0 4px 12px rgba(249, 115, 22, 0.1);
-  background: rgba(15, 23, 42, 0.8);
-}
-
-:global(.dark) .input-group input:focus ~ label,
-:global(.dark) .input-group input:not(:placeholder-shown) ~ label {
-  background: #1e293b;
-}
-
-:global(.dark) .input-group label { color: #64748b; }
-:global(.dark) .input-icon { color: #64748b; }
-:global(.dark) .checkbox-label { color: #94a3b8; }
-:global(.dark) .checkmark { border-color: #475569; }
-:global(.dark) .forgot-link { color: #fb923c; }
-:global(.dark) .toggle-password { color: #64748b; }
-:global(.dark) .toggle-password:hover { color: #fb923c; }
-
-:global(.dark) .card-footer { border-top-color: #334155; }
-:global(.dark) .card-footer p { color: #94a3b8; }
-:global(.dark) .card-footer .link { color: #fb923c; }
 
 /* ─── Mobile ────────────────────────────────────────── */
 @media (max-width: 480px) {

@@ -720,15 +720,6 @@ const handleRegister = () => {
   80% { transform: translateX(4px); }
 }
 
-:global(.dark) .error-banner {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-:global(.dark) .error-banner span {
-  color: #fca5a5;
-}
-
 /* ─── Footer ───────────────────────────────────────── */
 .card-footer {
   text-align: center;
@@ -742,64 +733,6 @@ const handleRegister = () => {
   color: #64748b;
   margin: 0;
 }
-
-/* ─── Dark Mode ─────────────────────────────────────── */
-:global(.dark) .register-page {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-}
-
-:global(.dark) .orb-1 { opacity: 0.2; }
-:global(.dark) .orb-2 { opacity: 0.15; }
-:global(.dark) .orb-3 { opacity: 0.1; }
-
-:global(.dark) .register-card {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(100, 116, 139, 0.2);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 2px 8px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-:global(.dark) .brand h1 {
-  background: linear-gradient(135deg, #f1f5f9, #cbd5e1);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-:global(.dark) .card-header h2 { color: #f1f5f9; }
-:global(.dark) .card-header p { color: #94a3b8; }
-
-:global(.dark) .input-group input {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: #334155;
-  color: #f1f5f9;
-}
-
-:global(.dark) .input-group input:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15), 0 4px 12px rgba(139, 92, 246, 0.1);
-  background: rgba(15, 23, 42, 0.8);
-}
-
-:global(.dark) .input-group input:focus ~ label,
-:global(.dark) .input-group input:not(:placeholder-shown) ~ label {
-  background: #1e293b;
-}
-
-:global(.dark) .input-group label { color: #64748b; }
-:global(.dark) .input-icon { color: #64748b; }
-:global(.dark) .terms-text { color: #94a3b8; }
-:global(.dark) .checkbox-label { color: #94a3b8; }
-:global(.dark) .checkmark { border-color: #475569; }
-:global(.dark) .toggle-password { color: #64748b; }
-:global(.dark) .toggle-password:hover { color: #a78bfa; }
-:global(.dark) .strength-segment { background: #334155; }
-
-:global(.dark) .card-footer { border-top-color: #334155; }
-:global(.dark) .card-footer p { color: #94a3b8; }
-:global(.dark) .card-footer .link { color: #a78bfa; }
-:global(.dark) .terms-text .link { color: #a78bfa; }
 
 /* ─── Mobile ────────────────────────────────────────── */
 @media (max-width: 480px) {
