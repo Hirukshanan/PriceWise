@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { sharedData, updateNotificationSettings } from '../../store';
 
 const props = defineProps<{
@@ -10,50 +10,32 @@ const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
-// Local form state
-const emailAlerts = ref(sharedData.notificationSettings.emailAlerts);
-const pushNotifications = ref(sharedData.notificationSettings.pushNotifications);
-const priceDropAlerts = ref(sharedData.notificationSettings.priceDropAlerts);
-const backInStockAlerts = ref(sharedData.notificationSettings.backInStockAlerts);
-const weeklyDigest = ref(sharedData.notificationSettings.weeklyDigest);
-const dealOfTheDay = ref(sharedData.notificationSettings.dealOfTheDay);
-const priceDropThreshold = ref(sharedData.notificationSettings.priceDropThreshold);
-const quietHoursEnabled = ref(sharedData.notificationSettings.quietHoursEnabled);
-const quietHoursStart = ref(sharedData.notificationSettings.quietHoursStart);
-const quietHoursEnd = ref(sharedData.notificationSettings.quietHoursEnd);
+// Local form state — single reactive object instead of 10 refs
+const form = reactive({
+  emailAlerts: sharedData.notificationSettings.emailAlerts,
+  pushNotifications: sharedData.notificationSettings.pushNotifications,
+  priceDropAlerts: sharedData.notificationSettings.priceDropAlerts,
+  backInStockAlerts: sharedData.notificationSettings.backInStockAlerts,
+  weeklyDigest: sharedData.notificationSettings.weeklyDigest,
+  dealOfTheDay: sharedData.notificationSettings.dealOfTheDay,
+  priceDropThreshold: sharedData.notificationSettings.priceDropThreshold,
+  quietHoursEnabled: sharedData.notificationSettings.quietHoursEnabled,
+  quietHoursStart: sharedData.notificationSettings.quietHoursStart,
+  quietHoursEnd: sharedData.notificationSettings.quietHoursEnd,
+});
 
 const saveMessage = ref('');
 
-// Sync when opening
+// Sync all fields when modal opens
 watch(() => props.isOpen, (open) => {
   if (open) {
-    emailAlerts.value = sharedData.notificationSettings.emailAlerts;
-    pushNotifications.value = sharedData.notificationSettings.pushNotifications;
-    priceDropAlerts.value = sharedData.notificationSettings.priceDropAlerts;
-    backInStockAlerts.value = sharedData.notificationSettings.backInStockAlerts;
-    weeklyDigest.value = sharedData.notificationSettings.weeklyDigest;
-    dealOfTheDay.value = sharedData.notificationSettings.dealOfTheDay;
-    priceDropThreshold.value = sharedData.notificationSettings.priceDropThreshold;
-    quietHoursEnabled.value = sharedData.notificationSettings.quietHoursEnabled;
-    quietHoursStart.value = sharedData.notificationSettings.quietHoursStart;
-    quietHoursEnd.value = sharedData.notificationSettings.quietHoursEnd;
+    Object.assign(form, sharedData.notificationSettings);
     saveMessage.value = '';
   }
 });
 
 const handleSave = () => {
-  updateNotificationSettings({
-    emailAlerts: emailAlerts.value,
-    pushNotifications: pushNotifications.value,
-    priceDropAlerts: priceDropAlerts.value,
-    backInStockAlerts: backInStockAlerts.value,
-    weeklyDigest: weeklyDigest.value,
-    dealOfTheDay: dealOfTheDay.value,
-    priceDropThreshold: priceDropThreshold.value,
-    quietHoursEnabled: quietHoursEnabled.value,
-    quietHoursStart: quietHoursStart.value,
-    quietHoursEnd: quietHoursEnd.value,
-  });
+  updateNotificationSettings({ ...form });
   saveMessage.value = 'Settings saved!';
   setTimeout(() => { saveMessage.value = ''; }, 3000);
 };
@@ -140,15 +122,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="emailAlerts = !emailAlerts"
+                      @click="form.emailAlerts = !form.emailAlerts"
                       role="switch"
-                      :aria-checked="emailAlerts"
+                      :aria-checked="form.emailAlerts"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-800"
-                      :class="emailAlerts ? 'bg-blue-600' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.emailAlerts ? 'bg-blue-600' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="emailAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.emailAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -165,15 +147,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="pushNotifications = !pushNotifications"
+                      @click="form.pushNotifications = !form.pushNotifications"
                       role="switch"
-                      :aria-checked="pushNotifications"
+                      :aria-checked="form.pushNotifications"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-slate-800"
-                      :class="pushNotifications ? 'bg-purple-600' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.pushNotifications ? 'bg-purple-600' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="pushNotifications ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.pushNotifications ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -202,15 +184,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="priceDropAlerts = !priceDropAlerts"
+                      @click="form.priceDropAlerts = !form.priceDropAlerts"
                       role="switch"
-                      :aria-checked="priceDropAlerts"
+                      :aria-checked="form.priceDropAlerts"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-slate-800"
-                      :class="priceDropAlerts ? 'bg-emerald-600' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.priceDropAlerts ? 'bg-emerald-600' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="priceDropAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.priceDropAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -227,15 +209,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="backInStockAlerts = !backInStockAlerts"
+                      @click="form.backInStockAlerts = !form.backInStockAlerts"
                       role="switch"
-                      :aria-checked="backInStockAlerts"
+                      :aria-checked="form.backInStockAlerts"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 dark:focus:ring-offset-slate-800"
-                      :class="backInStockAlerts ? 'bg-rose-500' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.backInStockAlerts ? 'bg-rose-500' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="backInStockAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.backInStockAlerts ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -252,15 +234,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="weeklyDigest = !weeklyDigest"
+                      @click="form.weeklyDigest = !form.weeklyDigest"
                       role="switch"
-                      :aria-checked="weeklyDigest"
+                      :aria-checked="form.weeklyDigest"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-800"
-                      :class="weeklyDigest ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.weeklyDigest ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="weeklyDigest ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.weeklyDigest ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -277,15 +259,15 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="dealOfTheDay = !dealOfTheDay"
+                      @click="form.dealOfTheDay = !form.dealOfTheDay"
                       role="switch"
-                      :aria-checked="dealOfTheDay"
+                      :aria-checked="form.dealOfTheDay"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 dark:focus:ring-offset-slate-800"
-                      :class="dealOfTheDay ? 'bg-amber-500' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.dealOfTheDay ? 'bg-amber-500' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="dealOfTheDay ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.dealOfTheDay ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
@@ -308,16 +290,16 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       <p class="text-sm font-semibold text-gray-800 dark:text-white">Price Drop Threshold</p>
                       <p class="text-xs text-gray-500 dark:text-slate-400">Only alert when price drops by at least this percentage</p>
                     </div>
-                    <span class="text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-lg">{{ priceDropThreshold }}%</span>
+                    <span class="text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-lg">{{ form.priceDropThreshold }}%</span>
                   </div>
                   <div class="flex items-center gap-2 flex-wrap">
                     <button
                       v-for="opt in thresholdOptions"
                       :key="opt"
-                      @click="priceDropThreshold = opt"
+                      @click="form.priceDropThreshold = opt"
                       :class="[
                         'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200',
-                        priceDropThreshold === opt
+                        form.priceDropThreshold === opt
                           ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
                           : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600'
                       ]"
@@ -342,25 +324,25 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       </div>
                     </div>
                     <button
-                      @click="quietHoursEnabled = !quietHoursEnabled"
+                      @click="form.quietHoursEnabled = !form.quietHoursEnabled"
                       role="switch"
-                      :aria-checked="quietHoursEnabled"
+                      :aria-checked="form.quietHoursEnabled"
                       class="relative inline-flex items-center shrink-0 w-11 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:focus:ring-offset-slate-800"
-                      :class="quietHoursEnabled ? 'bg-slate-700 dark:bg-slate-500' : 'bg-gray-200 dark:bg-slate-600'"
+                      :class="form.quietHoursEnabled ? 'bg-slate-700 dark:bg-slate-500' : 'bg-gray-200 dark:bg-slate-600'"
                     >
                       <span
                         class="inline-block w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300"
-                        :class="quietHoursEnabled ? 'translate-x-[1.35rem]' : 'translate-x-1'"
+                        :class="form.quietHoursEnabled ? 'translate-x-[1.35rem]' : 'translate-x-1'"
                       />
                     </button>
                   </div>
 
                   <Transition name="slide-down">
-                    <div v-if="quietHoursEnabled" class="mt-3 flex items-center gap-3 ml-12">
+                    <div v-if="form.quietHoursEnabled" class="mt-3 flex items-center gap-3 ml-12">
                       <div class="space-y-1">
                         <label class="text-xs font-medium text-gray-500 dark:text-slate-400">From</label>
                         <input
-                          v-model="quietHoursStart"
+                          v-model="form.quietHoursStart"
                           type="time"
                           class="block bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg py-1.5 px-3 text-sm text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                         />
@@ -369,7 +351,7 @@ const thresholdOptions = [5, 10, 15, 20, 25, 30, 40, 50];
                       <div class="space-y-1">
                         <label class="text-xs font-medium text-gray-500 dark:text-slate-400">Until</label>
                         <input
-                          v-model="quietHoursEnd"
+                          v-model="form.quietHoursEnd"
                           type="time"
                           class="block bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg py-1.5 px-3 text-sm text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                         />

@@ -1,31 +1,15 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import UserSidebar from '../components/common/UserSidebar.vue';
 
 const router = useRouter();
 
 const handleLogout = () => {
-  // TODO: clear auth state, then redirect to home
   router.push('/');
-};
-
-const handleNavigate = (route: string) => {
-  // Only push if route exists in the app, otherwise silently ignore
-  const knownRoutes = ['/history', '/profile', '/notifications'];
-  if (knownRoutes.includes(route)) {
-    router.push(route);
-  }
 };
 </script>
 
 <template>
   <div class="flex min-h-[calc(100vh-72px)] bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-    <!-- Sidebar -->
-    <UserSidebar
-      @logout="handleLogout"
-      @navigate="handleNavigate"
-    />
-
     <!-- Main content area -->
     <main class="flex-1 flex items-center justify-center p-10">
       <div class="text-center space-y-3">
@@ -41,3 +25,4 @@ const handleNavigate = (route: string) => {
     </main>
   </div>
 </template>
+

@@ -13,10 +13,6 @@ const userName = computed(() => sharedData.userProfile.name);
 const userEmail = computed(() => sharedData.userProfile.email);
 const userAvatar = computed(() => sharedData.userProfile.avatar);
 
-
-
-
-
 // ─── Active item tracking ─────────────────────────────────────────
 const activeItem = ref<string | null>(null);
 

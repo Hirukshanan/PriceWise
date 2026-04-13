@@ -16,11 +16,9 @@ const selectedCategory = ref('All Categories');
 const loadDashboardData = async () => {
   try {
     const [prodRes, catRes] = await Promise.all([
-      // ADD '?limit=0' to fetch all products for better filtering
       fetch('https://dummyjson.com/products?limit=0'), 
       fetch('https://dummyjson.com/products/category-list')
     ]);
-    // ... rest of the logic remains the same
 
     const prodData = await prodRes.json();
     const catData = await catRes.json();
@@ -44,16 +42,14 @@ const loadDashboardData = async () => {
  * Filter Logic: This reacts whenever selectedCategory or searchQuery changes.
  * It handles the 'All Categories' case and specific matches.
  */
-const filteredProducts = computed(() => { 
+const filteredProducts = computed(() => {
+  const query = sharedData.searchQuery.toLowerCase();
+  const normalizedSelected = selectedCategory.value.toLowerCase().replace(' ', '-');
+  const isAllCategories = selectedCategory.value === 'All Categories';
+
   return products.value.filter(item => {
-    // 1. Search Match logic
-    const matchesSearch = item.title.toLowerCase().includes(sharedData.searchQuery.toLowerCase()  );
-
-    // 2. Category Match logic
-    const normalizedSelected = selectedCategory.value.toLowerCase().replace(' ', '-');
-    const matchesCategory = selectedCategory.value === 'All Categories' || 
-                            item.category === normalizedSelected;
-
+    const matchesSearch = item.title.toLowerCase().includes(query);
+    const matchesCategory = isAllCategories || item.category === normalizedSelected;
     return matchesSearch && matchesCategory;
   });
 });

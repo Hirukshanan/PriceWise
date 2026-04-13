@@ -34,14 +34,16 @@ const cancelAlertInput = () => {
   showAlertInput.value = false;
 };
 
-// 1. Generate 5 Dummy Stores with different data
-const stores = ref([
+// Store template — fresh copy used on every route load
+const STORE_TEMPLATE = [
   { name: 'Amazon', price: 0, rating: 4.8, shipping: 0, delivery: '2 Days' },
   { name: 'eBay', price: 0, rating: 4.2, shipping: 5.99, delivery: '5 Days' },
   { name: 'Walmart', price: 0, rating: 4.5, shipping: 2.50, delivery: '3 Days' },
   { name: 'Target', price: 0, rating: 4.6, shipping: 0, delivery: '4 Days' },
   { name: 'BestBuy', price: 0, rating: 4.7, shipping: 10.00, delivery: '1 Day' },
-]);
+];
+
+const stores = ref(STORE_TEMPLATE.map(s => ({ ...s })));
 
 const loadProductData = async () => {
   isLoading.value = true;
@@ -49,15 +51,13 @@ const loadProductData = async () => {
   const data = await res.json();
   product.value = data;
   
-  // Assigning prices based on the original product price
-  stores.value = stores.value.map(s => ({
+  // Randomize prices from fresh template, not from previous state
+  stores.value = STORE_TEMPLATE.map(s => ({
     ...s,
-    price: +(data.price * (0.9 + Math.random() * 0.2)).toFixed(2) // Random price variation
+    price: +(data.price * (0.9 + Math.random() * 0.2)).toFixed(2)
   }));
   
-  // Record this visit in the history
   addToHistory(data);
-  
   isLoading.value = false;
 };
 
@@ -68,9 +68,8 @@ watch(() => route.params.id, (newId) => {
   if (newId) loadProductData();
 });
 
-// 2. Logic to decide "Best Sites"
+// Best deal recommendations based on rating and shipping
 const bestSites = computed(() => {
-  // Sorting to find best rating and lowest shipping
   const sortedByRating = [...stores.value].sort((a, b) => b.rating - a.rating);
   const sortedByShipping = [...stores.value].sort((a, b) => a.shipping - b.shipping);
   

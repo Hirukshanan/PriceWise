@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import type { PriceAlert } from '../types/alert';
 import { sharedData, removeAlert, updateAlertTarget } from '../store';
 
@@ -21,7 +21,6 @@ const loadAlerts = async () => {
         const res = await fetch(`https://dummyjson.com/products/${entry.productId}`);
         const product = await res.json();
 
-        // Determine status from live data
         let status: PriceAlert['status'] = 'monitoring';
         if (product.stock === 0) {
           status = 'out-of-stock';
@@ -70,7 +69,6 @@ const saveEdit = () => {
   if (editingAlert.value) {
     updateAlertTarget(editingAlert.value.productId, editTargetPrice.value);
 
-    // Update local view state
     const target = alerts.value.find(a => a.productId === editingAlert.value!.productId);
     if (target) {
       target.targetPrice = editTargetPrice.value;
@@ -103,14 +101,22 @@ const progressPercent = (alert: PriceAlert): number => {
   return Math.max(0, Math.min(100, Math.round(progress)));
 };
 
-const getStatusConfig = (status: PriceAlert['status']) => {
-  const configs = {
-    'monitoring': { label: 'Monitoring', bgLight: 'bg-blue-50', bgDark: 'dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', dot: 'bg-blue-500', barColor: 'bg-blue-500' },
-    'dropped': { label: 'Price Dropped!', bgLight: 'bg-emerald-50', bgDark: 'dark:bg-emerald-900/30', text: 'text-emerald-600 dark:text-emerald-400', dot: 'bg-emerald-500', barColor: 'bg-emerald-500' },
-    'out-of-stock': { label: 'Out of Stock', bgLight: 'bg-red-50', bgDark: 'dark:bg-red-900/30', text: 'text-red-500 dark:text-red-400', dot: 'bg-red-500', barColor: 'bg-red-500' },
-  };
-  return configs[status];
-};
+const STATUS_CONFIGS = {
+  'monitoring': { label: 'Monitoring', bgLight: 'bg-blue-50', bgDark: 'dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', dot: 'bg-blue-500', barColor: 'bg-blue-500' },
+  'dropped': { label: 'Price Dropped!', bgLight: 'bg-emerald-50', bgDark: 'dark:bg-emerald-900/30', text: 'text-emerald-600 dark:text-emerald-400', dot: 'bg-emerald-500', barColor: 'bg-emerald-500' },
+  'out-of-stock': { label: 'Out of Stock', bgLight: 'bg-red-50', bgDark: 'dark:bg-red-900/30', text: 'text-red-500 dark:text-red-400', dot: 'bg-red-500', barColor: 'bg-red-500' },
+} as const;
+
+// Memoized per-alert config map — avoids 4x redundant lookups per card in template
+const alertConfigs = computed(() => {
+  const map = new Map<number, typeof STATUS_CONFIGS[keyof typeof STATUS_CONFIGS]>();
+  for (const alert of alerts.value) {
+    map.set(alert.productId, STATUS_CONFIGS[alert.status]);
+  }
+  return map;
+});
+
+const getConfig = (alert: PriceAlert) => alertConfigs.value.get(alert.productId)!;
 </script>
 
 <template>
@@ -157,13 +163,13 @@ const getStatusConfig = (status: PriceAlert['status']) => {
             <span
               :class="[
                 'absolute top-2 right-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] md:text-xs font-bold backdrop-blur-md',
-                getStatusConfig(alert.status).bgLight,
-                getStatusConfig(alert.status).bgDark,
-                getStatusConfig(alert.status).text,
+                getConfig(alert).bgLight,
+                getConfig(alert).bgDark,
+                getConfig(alert).text,
               ]"
             >
-              <span :class="['w-1.5 h-1.5 rounded-full animate-pulse', getStatusConfig(alert.status).dot]"></span>
-              {{ getStatusConfig(alert.status).label }}
+              <span :class="['w-1.5 h-1.5 rounded-full animate-pulse', getConfig(alert).dot]"></span>
+              {{ getConfig(alert).label }}
             </span>
           </div>
 
@@ -208,7 +214,7 @@ const getStatusConfig = (status: PriceAlert['status']) => {
               </div>
               <div class="w-full h-1.5 md:h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div
-                  :class="['h-full rounded-full transition-all duration-700 ease-out', getStatusConfig(alert.status).barColor]"
+                  :class="['h-full rounded-full transition-all duration-700 ease-out', getConfig(alert).barColor]"
                   :style="{ width: progressPercent(alert) + '%' }"
                 ></div>
               </div>

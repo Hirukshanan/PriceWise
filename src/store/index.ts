@@ -2,61 +2,18 @@ import { reactive } from 'vue';
 import type { StoredAlert } from '../types/alert';
 import type { Product } from '../types/product';
 
-// ─── Favourites ─────────────────────────────────────────────────
-function loadFavourites(): number[] {
+// ─── Generic localStorage Helpers ───────────────────────────────
+function loadFromStorage<T>(key: string, fallback: T): T {
   try {
-    const stored = localStorage.getItem('pricewise_favourites');
-    return stored ? JSON.parse(stored) : [];
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : fallback;
   } catch {
-    return [];
+    return fallback;
   }
 }
 
-function saveFavourites(ids: number[]) {
-  localStorage.setItem('pricewise_favourites', JSON.stringify(ids));
-}
-
-// ─── Price Alerts ───────────────────────────────────────────────
-function loadAlerts(): StoredAlert[] {
-  try {
-    const stored = localStorage.getItem('pricewise_alerts');
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveAlerts(alerts: StoredAlert[]) {
-  localStorage.setItem('pricewise_alerts', JSON.stringify(alerts));
-}
-
-// ─── Comparison History ─────────────────────────────────────────
-export type HistoryItem = Pick<Product, 'id' | 'title' | 'brand' | 'price' | 'thumbnail'>;
-
-function loadHistory(): HistoryItem[] {
-  try {
-    const stored = localStorage.getItem('pricewise_history');
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveHistory(history: HistoryItem[]) {
-  localStorage.setItem('pricewise_history', JSON.stringify(history));
-}
-
-// ─── Auth State ─────────────────────────────────────────────────
-function loadIsLoggedIn(): boolean {
-  try {
-    return localStorage.getItem('pricewise_logged_in') === 'true';
-  } catch {
-    return false;
-  }
-}
-
-function saveIsLoggedIn(status: boolean) {
-  localStorage.setItem('pricewise_logged_in', status ? 'true' : 'false');
+function saveToStorage(key: string, value: unknown) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
 // ─── User Profile ───────────────────────────────────────────────
@@ -75,19 +32,6 @@ const defaultProfile: UserProfile = {
   location: '',
   avatar: 'https://tse2.mm.bing.net/th/id/OIP.U_1oQ5CZ0Kl2L6UggZwlpwAAAA?w=256&h=256&rs=1&pid=ImgDetMain&o=7&rm=3',
 };
-
-function loadUserProfile(): UserProfile {
-  try {
-    const stored = localStorage.getItem('pricewise_user_profile');
-    return stored ? { ...defaultProfile, ...JSON.parse(stored) } : { ...defaultProfile };
-  } catch {
-    return { ...defaultProfile };
-  }
-}
-
-function saveUserProfile(profile: UserProfile) {
-  localStorage.setItem('pricewise_user_profile', JSON.stringify(profile));
-}
 
 // ─── Notification Settings ──────────────────────────────────────
 export interface NotificationSettings {
@@ -116,19 +60,6 @@ const defaultNotificationSettings: NotificationSettings = {
   quietHoursEnd: '07:00',
 };
 
-function loadNotificationSettings(): NotificationSettings {
-  try {
-    const stored = localStorage.getItem('pricewise_notification_settings');
-    return stored ? { ...defaultNotificationSettings, ...JSON.parse(stored) } : { ...defaultNotificationSettings };
-  } catch {
-    return { ...defaultNotificationSettings };
-  }
-}
-
-function saveNotificationSettings(settings: NotificationSettings) {
-  localStorage.setItem('pricewise_notification_settings', JSON.stringify(settings));
-}
-
 // ─── Dark Mode ──────────────────────────────────────────────────
 function loadDarkMode(): boolean {
   try {
@@ -141,10 +72,6 @@ function loadDarkMode(): boolean {
   }
 }
 
-function saveDarkMode(enabled: boolean) {
-  localStorage.setItem('pricewise_dark_mode', enabled ? 'true' : 'false');
-}
-
 // ─── Registered Users ───────────────────────────────────────────
 export interface RegisteredUser {
   name: string;
@@ -152,29 +79,19 @@ export interface RegisteredUser {
   password: string;
 }
 
-function loadRegisteredUsers(): RegisteredUser[] {
-  try {
-    const stored = localStorage.getItem('pricewise_registered_users');
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveRegisteredUsers(users: RegisteredUser[]) {
-  localStorage.setItem('pricewise_registered_users', JSON.stringify(users));
-}
+// ─── Comparison History ─────────────────────────────────────────
+export type HistoryItem = Pick<Product, 'id' | 'title' | 'brand' | 'price' | 'thumbnail'>;
 
 // ─── Shared Reactive State ──────────────────────────────────────
 export const sharedData = reactive({
   searchQuery: '',
-  favourites: loadFavourites() as number[],
-  alerts: loadAlerts() as StoredAlert[],
-  history: loadHistory() as HistoryItem[],
+  favourites: loadFromStorage<number[]>('pricewise_favourites', []),
+  alerts: loadFromStorage<StoredAlert[]>('pricewise_alerts', []),
+  history: loadFromStorage<HistoryItem[]>('pricewise_history', []),
   sidebarOpen: false,
-  isLoggedIn: loadIsLoggedIn(),
-  userProfile: loadUserProfile(),
-  notificationSettings: loadNotificationSettings(),
+  isLoggedIn: localStorage.getItem('pricewise_logged_in') === 'true',
+  userProfile: { ...defaultProfile, ...loadFromStorage<Partial<UserProfile>>('pricewise_user_profile', {}) },
+  notificationSettings: { ...defaultNotificationSettings, ...loadFromStorage<Partial<NotificationSettings>>('pricewise_notification_settings', {}) },
   isDarkMode: loadDarkMode(),
 });
 
@@ -186,90 +103,67 @@ if (sharedData.isDarkMode) {
 // ─── Dark Mode Actions ──────────────────────────────────────────
 export function toggleDarkMode() {
   sharedData.isDarkMode = !sharedData.isDarkMode;
-  if (sharedData.isDarkMode) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-  saveDarkMode(sharedData.isDarkMode);
+  document.documentElement.classList.toggle('dark', sharedData.isDarkMode);
+  localStorage.setItem('pricewise_dark_mode', String(sharedData.isDarkMode));
 }
 
 // ─── Auth Actions ───────────────────────────────────────────────
 export function registerUser(name: string, email: string, password: string): { success: boolean; error?: string } {
-  const users = loadRegisteredUsers();
+  const users = loadFromStorage<RegisteredUser[]>('pricewise_registered_users', []);
 
-  // Check if email already exists
   if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
     return { success: false, error: 'An account with this email already exists' };
   }
 
-  // Save the new user
   users.push({ name, email, password });
-  saveRegisteredUsers(users);
+  saveToStorage('pricewise_registered_users', users);
 
   // Auto-login after registration
   sharedData.isLoggedIn = true;
-  saveIsLoggedIn(true);
+  localStorage.setItem('pricewise_logged_in', 'true');
 
-  // Set profile from registration data
-  sharedData.userProfile = {
-    ...sharedData.userProfile,
-    name,
-    email,
-  };
-  saveUserProfile(sharedData.userProfile);
+  sharedData.userProfile = { ...sharedData.userProfile, name, email };
+  saveToStorage('pricewise_user_profile', sharedData.userProfile);
 
   return { success: true };
 }
 
 export function loginUser(email: string, password: string): { success: boolean; error?: string } {
-  const users = loadRegisteredUsers();
+  const users = loadFromStorage<RegisteredUser[]>('pricewise_registered_users', []);
   const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
   if (!user) {
     return { success: false, error: 'No account found with this email' };
   }
-
   if (user.password !== password) {
     return { success: false, error: 'Incorrect password' };
   }
 
-  // Successful login
   sharedData.isLoggedIn = true;
-  saveIsLoggedIn(true);
+  localStorage.setItem('pricewise_logged_in', 'true');
 
-  // Load user profile
-  sharedData.userProfile = {
-    ...sharedData.userProfile,
-    name: user.name,
-    email: user.email,
-  };
-  saveUserProfile(sharedData.userProfile);
+  sharedData.userProfile = { ...sharedData.userProfile, name: user.name, email: user.email };
+  saveToStorage('pricewise_user_profile', sharedData.userProfile);
 
   return { success: true };
 }
 
-export function login() {
-  sharedData.isLoggedIn = true;
-  saveIsLoggedIn(true);
-}
-
 export function logout() {
   sharedData.isLoggedIn = false;
-  saveIsLoggedIn(false);
+  localStorage.setItem('pricewise_logged_in', 'false');
   sharedData.sidebarOpen = false;
 }
 
 // ─── Profile Actions ────────────────────────────────────────────
 export function updateUserProfile(updates: Partial<UserProfile>) {
   Object.assign(sharedData.userProfile, updates);
-  saveUserProfile(sharedData.userProfile);
+  saveToStorage('pricewise_user_profile', sharedData.userProfile);
 }
 
 // ─── Notification Settings Actions ──────────────────────────────
 export function updateNotificationSettings(updates: Partial<NotificationSettings>) {
   Object.assign(sharedData.notificationSettings, updates);
-  saveNotificationSettings(sharedData.notificationSettings);
+  saveToStorage('pricewise_notification_settings', sharedData.notificationSettings);
 }
 
 // ─── Favourite Actions ──────────────────────────────────────────
@@ -280,7 +174,7 @@ export function toggleFavourite(id: number) {
   } else {
     sharedData.favourites.splice(index, 1);
   }
-  saveFavourites(sharedData.favourites);
+  saveToStorage('pricewise_favourites', sharedData.favourites);
 }
 
 export function isFavourite(id: number): boolean {
@@ -291,20 +185,20 @@ export function isFavourite(id: number): boolean {
 export function addAlert(productId: number, targetPrice: number) {
   if (!hasAlert(productId)) {
     sharedData.alerts.push({ productId, targetPrice });
-    saveAlerts(sharedData.alerts);
+    saveToStorage('pricewise_alerts', sharedData.alerts);
   }
 }
 
 export function removeAlert(productId: number) {
   sharedData.alerts = sharedData.alerts.filter(a => a.productId !== productId);
-  saveAlerts(sharedData.alerts);
+  saveToStorage('pricewise_alerts', sharedData.alerts);
 }
 
 export function updateAlertTarget(productId: number, targetPrice: number) {
   const alert = sharedData.alerts.find(a => a.productId === productId);
   if (alert) {
     alert.targetPrice = targetPrice;
-    saveAlerts(sharedData.alerts);
+    saveToStorage('pricewise_alerts', sharedData.alerts);
   }
 }
 
@@ -314,10 +208,8 @@ export function hasAlert(productId: number): boolean {
 
 // ─── History Actions ────────────────────────────────────────────
 export function addToHistory(product: Product) {
-  // Remove if it already exists to put it at the front
   sharedData.history = sharedData.history.filter(item => item.id !== product.id);
 
-  // Add to the front of the array
   sharedData.history.unshift({
     id: product.id,
     title: product.title,
@@ -331,10 +223,10 @@ export function addToHistory(product: Product) {
     sharedData.history = sharedData.history.slice(0, 20);
   }
 
-  saveHistory(sharedData.history);
+  saveToStorage('pricewise_history', sharedData.history);
 }
 
 export function clearHistory() {
   sharedData.history = [];
-  saveHistory(sharedData.history);
+  saveToStorage('pricewise_history', sharedData.history);
 }
