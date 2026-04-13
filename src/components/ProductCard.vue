@@ -1,6 +1,6 @@
 <script setup lang="ts" title="ProductCard.vue">
 import type { Product } from '../types/product';
-import { toggleFavourite, isFavourite } from '../store';
+import { toggleFavourite, isFavourite, sharedData } from '../store';
 
 // Props definition with Strict Types 
 defineProps<{
@@ -9,6 +9,7 @@ defineProps<{
 
 const onFavouriteClick = (e: Event, id: number) => {
   e.stopPropagation();
+  if (!sharedData.isLoggedIn) return;
   toggleFavourite(id);
 };
 </script>

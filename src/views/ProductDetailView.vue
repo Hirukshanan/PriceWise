@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { addAlert, removeAlert, hasAlert, sharedData, addToHistory } from '../store';
 
 const route = useRoute();
+const router = useRouter();
 const product = ref<any>(null);
 const isLoading = ref(true);
 
@@ -15,6 +16,7 @@ const productId = computed(() => Number(route.params.id));
 const isAlertSet = computed(() => hasAlert(productId.value));
 
 const toggleAlertInput = () => {
+  if (!sharedData.isLoggedIn) return;
   if (isAlertSet.value) {
     removeAlert(productId.value);
   } else {
@@ -61,7 +63,13 @@ const loadProductData = async () => {
   isLoading.value = false;
 };
 
-onMounted(loadProductData);
+onMounted(() => {
+  if (!sharedData.isLoggedIn) {
+    router.replace('/login');
+    return;
+  }
+  loadProductData();
+});
 
 // Watch for route ID changes to reload data when navigating between products
 watch(() => route.params.id, (newId) => {

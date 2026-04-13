@@ -84,7 +84,7 @@ onMounted(loadDashboardData);
             v-for="item in filteredProducts" 
             :key="item.id" 
             :product="item" 
-            @click="$router.push(`/product/${item.id}`)"
+            @click="$router.push(sharedData.isLoggedIn ? `/product/${item.id}` : '/login')"
             class="cursor-pointer"
           />
         </div>
